@@ -5,18 +5,29 @@ function btnRegister() {
   let email = document.querySelector('.js-email-register').value;
   const password = document.querySelector('.js-password-register').value;
   let name = document.querySelector('.js-name-register').value;
-  firebase.auth().createUserWithEmailAndPassword(email, password);
+  let lastname = document.querySelector('.js-lastname-register').value;
+  let birthday = document.querySelector('.js-birthday-register').value;
+  firebase.auth().createUserWithEmailAndPassword(email, password).then( function () {
   firebase.auth().onAuthStateChanged(function (user) {
-    firebase.auth().currentUser;
+    user = firebase.auth().currentUser;    
+    user.updateProfile({
+      displayName: name
+    })
     if (user != null) {
-      email = user.email;
-      name = user.displayName;
+      uid = user.uid; 
       window.location = '#home';
-      console.log(email, name)
+      db.collection('users').add({
+        name: name,
+        sobrenome: lastname,
+        dn: birthday,
+        email: email,
+        uid: uid
+      })
     } 
     // else {
       //No user is signed in}
   });
+})
 }
 
 function btnVoltar() {
@@ -29,6 +40,8 @@ function Register() {
       <h1>Registre-se!</h1>
       <form class="register-box">
       ${Input({ type: 'text', class: 'js-name-register', placeholder: 'Digite seu nome' })}
+      ${Input({ type: 'text', class: 'js-lastname-register', placeholder: 'Digite seu sobrenome' })}
+      ${Input({ type: 'date', class: 'js-birthday-register', placeholder: 'Digite sua data' })}
       ${Input({ type: 'email', class: 'js-email-register', placeholder: 'Digite seu e-mail' })}
       ${Input({ type: 'password', class: 'js-password-register', placeholder: 'Digite a senha' })}
       </form>

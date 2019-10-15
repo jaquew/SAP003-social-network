@@ -32,7 +32,14 @@ function googleLogin() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       window.location = '#home';
-      // User is signed in.
+      user.providerData.forEach(function (profile) {
+        db.collection('users').add({
+          name: profile.displayName,
+          email: profile.email,
+          uid: profile.uid,
+        // console.log('  Photo URL: ' + profile.photoURL);
+      })
+    })
     } else {
       // No user is signed in.
     }
