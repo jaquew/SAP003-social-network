@@ -19,17 +19,16 @@ function Home() {
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#profile">Perfil</a></li>
-        <li><a href="#timeline">Postagens</a></li>
       </ul>
       ${Button({ id: 'btn-exit', title: 'SAIR', onClick: btnSignOut })}
     </nav>
 
     <section>
+      <h1>Essa é a sua timeline</h1>
       <h3>Escreva aqui<h3>
       <textarea class="txtArea" rows="5" cols="60"></textarea>
       ${Button({ id: 'btn-print', title: 'PRINTA JESUS', onClick: btnPrint })}
     </section>    
-    <h1>Essa é a sua timeline</h1>
 
     <ul class="posts"></ul>
   `;
