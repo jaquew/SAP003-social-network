@@ -8,7 +8,7 @@ function btnSignOut() {
   }).catch(function (error) {
     // An error happened.
   });
-}
+} 
 
 function Home() {
   
