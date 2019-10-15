@@ -13,7 +13,7 @@ function btnSignOut() {
 } 
 
 function Home() {
-  
+  app.loadPosts()  
   const template = `
     <nav class="menu">
       <ul>
@@ -65,7 +65,7 @@ function printPosts(post) {
   const postList = document.querySelector('.posts')
   
   const postTemplate = `
-  <li>
+  <li> ${post.data().user_id}: 
   ${post.data().text} ${post.data().likes}
   </li>
   `
@@ -88,7 +88,7 @@ window.app = {
 }
 
 
-window.addEventListener('load', loadPosts)
+// window.addEventListener('load', loadPosts)
 
 
 export default Home;
