@@ -28,23 +28,20 @@ function buttonLogin() {
 
 function googleLogin() {
   var provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).then(function () {});
+  firebase.auth().signInWithPopup(provider).then(function () {
+    // user.providerData.forEach(function (profile) {
+    // db.collection('users').add({
+    //   name: profile.displayName,
+    //   email: profile.email,
+    //   uid: profile.uid,
+    // console.log('  Photo URL: ' + profile.photoURL);
+  })
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      window.location = '#home';
-      user.providerData.forEach(function (profile) {
-        db.collection('users').add({
-          name: profile.displayName,
-          email: profile.email,
-          uid: profile.uid,
-        // console.log('  Photo URL: ' + profile.photoURL);
-      })
-    })
-    } else {
-      // No user is signed in.
-    }
-  });
-}
+      window.location = '#home';      
+    }})
+}   
+
 
 function Login() {
   const template = `
