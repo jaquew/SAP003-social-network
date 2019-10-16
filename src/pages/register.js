@@ -2,17 +2,14 @@ import Button from '../components/button.js';
 import Input from '../components/input.js';
 
 function btnRegister() {
+  console.log('Tá rodando btnReg')
   let email = document.querySelector('.js-email-register').value;
   const password = document.querySelector('.js-password-register').value;
   let name = document.querySelector('.js-name-register').value;
   let lastname = document.querySelector('.js-lastname-register').value;
   let birthday = document.querySelector('.js-birthday-register').value;
   firebase.auth().createUserWithEmailAndPassword(email, password).then( function () {
-  firebase.auth().onAuthStateChanged(function (user) {
-    user = firebase.auth().currentUser;    
-    user.updateProfile({
-      displayName: name
-    })
+    user = firebase.auth().currentUser;
     if (user != null) {
       uid = user.uid; 
       window.location = '#home';
@@ -23,11 +20,10 @@ function btnRegister() {
         email: email,
         uid: uid
       })
-    } 
-    // else {
-      //No user is signed in}
-  });
-})
+    }     
+    user.updateProfile({
+      displayName: name
+    })})
 }
 
 function btnVoltar() {
