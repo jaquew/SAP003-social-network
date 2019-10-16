@@ -20,7 +20,7 @@ function Home() {
         <li><a href="#home">Home</a></li>
         <li><a href="#profile">Perfil</a></li>
       </ul>
-      ${Button({ id: 'btn-exit', title: 'SAIR', onClick: btnSignOut })}
+      ${Button({ id: 'btn-exit', class: 'primary-button',  title: 'SAIR', onClick: btnSignOut })}
     </nav>
 
     <section>
@@ -43,10 +43,12 @@ function btnPrint() {
   const post = {
     text: textArea,
     likes: 0,
-    user_id: user.displayName
-    // coments: [],
-    //timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    user_id: user.displayName,
+    coments: [],
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   }
+  console.log(post);
+  
   // salvando o objeto no banco de dados
   firebase.firestore().collection('posts').add(post).then(res => {
       app.loadPosts()
@@ -60,7 +62,12 @@ function printPosts(post) {
   var id = post.id
   console.log(id);
   const postTemplate = `
-  <li> ${post.data().user_id}: ${post.data().text} ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️'})} ${post.data().likes} ${Button({ id: 'btn-like', class: 'btn-like', title: '❌'})}
+<<<<<<< HEAD
+  <li> ${post.data().user_id}: ${post.data().text} ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️'})} ${post.data().likes} 
+=======
+  <li> ${post.data().user_id}: ${post.data().text} ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️', onClick: like})} ${post.data().likes} ${Button({ id: 'btn-like', class: 'btn-like', title: '❌'})}
+  <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}
+>>>>>>> 482302a444cced0889a4a815a1eee3e81f2a5ec3
   </li>
   `
   postList.innerHTML += postTemplate;
@@ -79,7 +86,7 @@ function loadPosts() {
 function like (){
   console.log(id);
   db.collection('posts').doc(id).set({
-    likes:+1
+    likes: 4
 }).then(function() {
     console.log('Document successfully written!');
 })
