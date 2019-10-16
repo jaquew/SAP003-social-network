@@ -63,7 +63,9 @@ function printPosts(post) {
   console.log(id);
   const postTemplate = `
 
-  <li> ${post.data().user_id}: ${post.data().text} ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️', onClick: like})} ${post.data().likes} ${Button({ id: 'btn-like', class: 'btn-like', title: '❌'})}
+  <li> ${post.data().user_id}: ${post.data().text}
+  ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️', onClick: like})}
+  ${post.data().likes} ${Button({ id: 'btn-delete', class: 'btn-delete', title: '❌', onClick: deletePost})}
   <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}
   </li>
   `
@@ -84,11 +86,21 @@ function like (){
   console.log(id);
   db.collection('posts').doc(id).set({
     likes: 4
-}).then(function() {
+  }).then(function() {
     console.log('Document successfully written!');
-})
-
+  })
 }
+
+function deletePost(postId) {
+  // const postColletion = firebase.firestore().collection
+  db.collection('posts').doc('textArea').delete().then(function() {
+    console.log('Document successfully deleted!');
+    app.loadPosts()
+  }).catch(function(error) {
+    //console.error('Error removing document: ', error);
+  });
+}
+
 
 window.app = {
   loadPosts: loadPosts,
