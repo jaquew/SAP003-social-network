@@ -14,12 +14,3 @@
 [debug] [2019-10-16T17:06:50.686Z] <<< HTTP RESPONSE 200
 [debug] [2019-10-16T17:06:50.689Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/social-network-squad3  
  
-[debug] [2019-10-16T17:06:52.217Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Serving from '/home/laboratoria/Desktop/Lab/SAP003-social-network'...
-[info] 
-[debug] [2019-10-16T17:06:52.223Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/social-network-squad3/webApps/-/config  
- 
-[debug] [2019-10-16T17:06:53.535Z] <<< HTTP RESPONSE 200
-[info] i  hosting: Serving hosting files from: src
-[info] ✔  hosting: Local server: http://localhost:5000
