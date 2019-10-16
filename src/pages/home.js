@@ -39,6 +39,8 @@ function btnPrint() {
   const textArea = document.querySelector('.txtArea').value
   // console.log(textArea)
   const user = firebase.auth().currentUser;
+  console.log(user.displayName);
+  
 
   const post = {
     text: textArea,
@@ -54,13 +56,12 @@ function btnPrint() {
       app.loadPosts()
     });
       document.querySelector('.txtArea').value = ''
- 
 }
 //
 function printPosts(post) {
   const postList = document.querySelector('.posts')
   var id = post.id
-  console.log(id);
+  // console.log(id);
   const postTemplate = `
 
   <li> ${post.data().user_id}: ${post.data().text}
