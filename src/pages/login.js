@@ -62,7 +62,7 @@ function Login() {
             type: 'password',
           })}
 
-          ${Button({ id: 'entrar', title: 'Entrar', onClick: buttonLogin })}
+          ${Button({ id: 'entrar', title: 'Entrar', class:'primary-button', onClick: buttonLogin })}
           ${Button({ id: 'google', title: 'Entrar com sua conta do Google', class: 'btn-google', onClick: googleLogin })}
         </form>
         <p>Não tem conta? <a href="#register">Registre-se</a></p>

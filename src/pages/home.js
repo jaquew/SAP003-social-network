@@ -27,7 +27,7 @@ function Home() {
       <h1>Essa é a sua timeline</h1>
       <h3>Escreva aqui<h3>
       <textarea class="txtArea" rows="5" cols="60"></textarea>
-      ${Button({ id: 'btn-print', title: 'PRINTA JESUS', onClick: btnPrint })}
+      ${Button({ id: 'btn-print', title: 'PRINTA JESUS', class: 'primary-button', onClick: btnPrint })}
     </section>    
 
     <ul class="posts"></ul>
@@ -52,27 +52,21 @@ function btnPrint() {
       app.loadPosts()
     });
       document.querySelector('.txtArea').value = ''
-      // return res
-  // })
-  // .then(res => {
-    // console.log(res)
-    // app.loadPosts()
-  // })
+ 
 }
-
+//
 function printPosts(post) {
   const postList = document.querySelector('.posts')
-  
+  var id = post.id
+  console.log(id);
   const postTemplate = `
-  <li> ${post.data().user_id}: 
-  ${post.data().text} ${post.data().likes}
+  <li> ${post.data().user_id}: ${post.data().text} ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️'})} ${post.data().likes}
   </li>
   `
   postList.innerHTML += postTemplate;
 }
 
 function loadPosts() {
-  console.log(postColletion)
   // const postList = document.querySelector('.posts')
   postColletion.get().then(snap => {
     document.querySelector('.posts').innerHTML = ''
@@ -80,14 +74,20 @@ function loadPosts() {
       printPosts(post)
     })
   })
+}
+
+function like (){
+  console.log(id);
+  db.collection('posts').doc(id).set({
+    likes:+1
+}).then(function() {
+    console.log('Document successfully written!');
+})
 
 }
+
 window.app = {
   loadPosts: loadPosts,
 }
-
-
-// window.addEventListener('load', loadPosts)
-
 
 export default Home;
