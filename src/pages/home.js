@@ -60,7 +60,7 @@ function printPosts(post) {
   var id = post.id
   console.log(id);
   const postTemplate = `
-  <li> ${post.data().user_id}: ${post.data().text} ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️'})} ${post.data().likes}
+  <li> ${post.data().user_id}: ${post.data().text} ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️'})} ${post.data().likes} ${Button({ id: 'btn-like', class: 'btn-like', title: '❌'})}
   </li>
   `
   postList.innerHTML += postTemplate;
