@@ -26,7 +26,7 @@ function Home() {
     <section>
       <h1>Essa é a sua timeline</h1>
       <h3>Escreva aqui<h3>
-      <textarea class="txtArea" rows="5" cols="60" required></textarea>
+      <textarea class="txtArea" rows="5" cols="60"></textarea>
       ${Button({ id: 'btn-print', title: 'PRINTA JESUS', class: 'primary-button', onClick: btnPrint })}
     </section>
 
@@ -58,20 +58,27 @@ function btnPrint() {
 //
 function printPosts(post) {
   const postList = document.querySelector('.posts')
-  // var postid = post.id
 
-  const postTemplate = `
-  <li> ${post.data().user_name}: 
-  <span id="${post.id}">${post.data().text}</span>
+  const atual = firebase.auth().currentUser.uid;
+  const autor = post.data().user_id
+  
+  let postTemplate = `
+  <li><p> ${post.data().user_name}: </p>
+  <div id="${post.id}">${post.data().text}</div>
   ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}
   ${post.data().likes} 
+  <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
+  `
+  if (autor === atual) {
+    postTemplate += `
   <p>${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
   ${Button({ dataId: post.id, class: 'btn-edit', title: 'Editar', onClick: editPost})} 
   ${Button({ dataId: post.id, class: 'btn-save', title: 'Salvar', onClick: save})}</p>
-  <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
-
   </li>
   `
+  }else {
+    `<li>`
+  }
   postList.innerHTML += postTemplate;
 }
 
@@ -113,19 +120,17 @@ function deletePost(event) {
 
 function editPost(event){
   postid = event.target.dataset.id
-  console.log(postid);
-  console.log('rodou edit');
+
   const posteditor = document.getElementById(postid)
   posteditor.setAttribute('contenteditable', 'true');
-  //posteditor.innerHTML +=
 }
 
 function save(event){
   postid = event.target.dataset.id
-  console.log(postid)
+  // console.log(postid)
   const posteditor = document.getElementById(postid)
   newtext = posteditor.textContent
-  console.log(newtext);
+  // console.log(newtext);
   db.collection('posts').doc(postid)
   .update({
     text: newtext,
