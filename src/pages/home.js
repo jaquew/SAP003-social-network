@@ -10,10 +10,10 @@ function btnSignOut() {
   }).catch(function (error) {
     // An error happened.
   });
-} 
+}
 
 function Home() {
-  app.loadPosts()  
+  app.loadPosts()
   const template = `
     <nav class="menu">
       <ul>
@@ -28,7 +28,7 @@ function Home() {
       <h3>Escreva aqui<h3>
       <textarea class="txtArea" rows="5" cols="60"></textarea>
       ${Button({ id: 'btn-print', title: 'PRINTA JESUS', class: 'primary-button', onClick: btnPrint })}
-    </section>    
+    </section>
 
     <ul class="posts"></ul>
   `;
@@ -40,7 +40,7 @@ function btnPrint() {
   // console.log(textArea)
   const user = firebase.auth().currentUser;
   console.log(user.displayName);
-  
+
 
   const post = {
     text: textArea,
@@ -50,7 +50,7 @@ function btnPrint() {
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   }
   console.log(post);
-  
+
   // salvando o objeto no banco de dados
   firebase.firestore().collection('posts').add(post).then(res => {
       app.loadPosts()
@@ -60,13 +60,13 @@ function btnPrint() {
 //
 function printPosts(post) {
   const postList = document.querySelector('.posts')
-  var id = post.id
-  // console.log(id);
+  var postid = post.id
+  console.log(postid);
   const postTemplate = `
-
-  <li> ${post.data().user_id}: ${post.data().text}
+  <li><span id="${postid}"> ${post.data().user_id}: ${post.data().text}</span>
   ${Button({ id: 'btn-like', class: 'btn-like', title: '❤️', onClick: like})}
   ${post.data().likes} ${Button({ id: 'btn-delete', class: 'btn-delete', title: '❌', onClick: deletePost})}
+  ${Button({ id: 'btn-edit', class: 'btn-edit', title: 'edit', onClick: editPost})} ${Button({ id: 'btn-save', class: 'btn-save', title: 'Salvar', onClick: save})}
   <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}
   </li>
   `
@@ -84,8 +84,8 @@ function loadPosts() {
 }
 
 function like (){
-  console.log(id);
-  db.collection('posts').doc(id).set({
+  console.log(postid);
+  db.collection('posts').doc(postid).set({
     likes: 4
   }).then(function() {
     console.log('Document successfully written!');
@@ -100,6 +100,19 @@ function deletePost(postId) {
   }).catch(function(error) {
     //console.error('Error removing document: ', error);
   });
+}
+
+function editPost(postid){
+    console.log(postid);
+    console.log('rodou edit');
+    const posteditor = document.getElementById(postid)
+    posteditor.setAttribute('contenteditable', 'true');
+    //posteditor.innerHTML +=
+}
+
+function save(){
+    console.log('teje salvado');
+
 }
 
 
