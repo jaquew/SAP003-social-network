@@ -1,15 +1,14 @@
 function Button(props) {
   const template = `
-    <button class="${props.class}" onclick="button.handleClick(event, ${props.onClick})" >${props.title}</button>
-  `;
-
+    <button data-id="${props.dataId}" class="${props.class}" onclick="button.handleClick(event, ${props.onClick})" >${props.title}</button>
+  `;// data-id=${props.dataId}
   return template;
 }
 
 window.button = {
   handleClick: (event, callback) => {
     event.preventDefault()
-    callback()
+    callback(event)
   },
 };
 
