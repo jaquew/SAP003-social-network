@@ -37,11 +37,7 @@ function Home() {
 
 function btnPrint() {
   const textArea = document.querySelector('.txtArea').value
-  // console.log(textArea)
   const user = firebase.auth().currentUser;
-  console.log(user.displayName);
-
-
   const post = {
     text: textArea,
     likes: 0,
@@ -69,10 +65,11 @@ function printPosts(post) {
   <span id="${post.id}">${post.data().text}</span>
   ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}
   ${post.data().likes} 
-  <p>${Button({ dataId: 'btn-delete', class: 'btn-delete', title: '❌', onClick: deletePost})}
+  <p>${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
   ${Button({ dataId: post.id, class: 'btn-edit', title: 'Editar', onClick: editPost})} 
   ${Button({ dataId: post.id, class: 'btn-save', title: 'Salvar', onClick: save})}</p>
   <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
+
   </li>
   `
   postList.innerHTML += postTemplate;
@@ -104,14 +101,14 @@ function like (){
   app.loadPosts()
 }
 
-function deletePost(postId) {
-  // const postColletion = firebase.firestore().collection
-  db.collection('posts').doc('textArea').delete().then(function() {
+function deletePost(event) {
+  const id = event.target.dataset.id
+  const postColletion = firebase.firestore().collection('posts')
+  postColletion.doc(id).delete()  
+  .then(function() {
     console.log('Document successfully deleted!');
     app.loadPosts()
-  }).catch(function(error) {
-    //console.error('Error removing document: ', error);
-  });
+  })
 }
 
 function editPost(event){
