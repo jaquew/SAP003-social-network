@@ -90,6 +90,14 @@ img.img-btn-google {
   background: rgb(255, 255, 255);
 }
 
+.btn-posts {
+  justify-content: flex-end;
+  display: flex;
+  background: pink;
+  border: 2px solid red;;
+}
+
+
 @media (min-width: 540px) {
   .login-layout{
     flex-direction: row;

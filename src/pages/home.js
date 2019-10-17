@@ -36,24 +36,26 @@ function Home() {
 }
 
 function btnPrint() {
-  const textArea = document.querySelector('.txtArea').value
-  const user = firebase.auth().currentUser;
-  const post = {
-    text: textArea,
-    likes: 0,
-    user_id: user.uid,
-    user_name: user.displayName,
-    coments: [],
-    privacy: 'public',
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  }
-  console.log(post);
-
-  // salvando o objeto no banco de dados
-  firebase.firestore().collection('posts').add(post).then(res => {
+  const conteudo = document.querySelector('.txtArea').value;
+  console.log(conteudo)
+  if (conteudo !== null && conteudo !== '') {
+    const textArea = document.querySelector('.txtArea').value
+    const user = firebase.auth().currentUser;
+    const post = {
+      text: textArea,
+      likes: 0,
+      user_id: user.uid,
+      user_name: user.displayName,
+      coments: [],
+      privacy: 'public',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    }
+    // salvando o objeto no banco de dados
+    firebase.firestore().collection('posts').add(post).then(res => {
       app.loadPosts()
     });
       document.querySelector('.txtArea').value = ''
+  }   
 }
 //
 function printPosts(post) {
@@ -63,11 +65,14 @@ function printPosts(post) {
   const postTemplate = `
   <li> ${post.data().user_name}: 
   <span id="${post.id}">${post.data().text}</span>
-  ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}
-  ${post.data().likes} 
-  <p>${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
-  ${Button({ dataId: post.id, class: 'btn-edit', title: 'Editar', onClick: editPost})} 
-  ${Button({ dataId: post.id, class: 'btn-save', title: 'Salvar', onClick: save})}</p>
+  <p>
+  ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes} 
+  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
+  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
+  ${Button({ dataId: post.id, class: 'btn-comment', title: '💬'})}
+  ${Button({ dataId: post.id, class: 'btn-save', title: '✔️', onClick: save})}
+  </p>
+  
   <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
 
   </li>
@@ -88,8 +93,8 @@ function loadPosts() {
   })
 }
 
-function like (){
-  postid = event.target.dataset.id
+function like (event){
+  const postid = event.target.dataset.id
   db.collection('posts').doc(postid).get()
   .then( function (doc){
     let newlike = (doc.data().likes)+1
@@ -113,27 +118,24 @@ function deletePost(event) {
 
 function editPost(event){
   postid = event.target.dataset.id
-  console.log(postid);
-  console.log('rodou edit');
+  // console.log(postid);
+  // console.log('rodou edit');
   const posteditor = document.getElementById(postid)
   posteditor.setAttribute('contenteditable', 'true');
-  //posteditor.innerHTML +=
 }
 
 function save(event){
   postid = event.target.dataset.id
-  console.log(postid)
+  // console.log(postid)
   const posteditor = document.getElementById(postid)
   newtext = posteditor.textContent
-  console.log(newtext);
+  // console.log(newtext);
   db.collection('posts').doc(postid)
   .update({
     text: newtext,
   });
   posteditor.setAttribute('contenteditable', 'false');
-
 }
-
 
 window.app = {
   loadPosts: loadPosts,
