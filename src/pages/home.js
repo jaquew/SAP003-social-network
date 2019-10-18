@@ -71,15 +71,21 @@ const postTemplate = `
   <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
   <div class="btn-icons">
     ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes} 
+    ${Button({ dataId: post.id, class: 'btn-comment', title: '💬'})}
+  `
+  if (atual==autor) {
+    postTemplate += `
     ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
     ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
-    ${Button({ dataId: post.id, class: 'btn-comment', title: '💬'})}
-    ${Button({ dataId: post.id, class: 'btn-save', title: '✔️', onClick: save})}
-  </div>
-  </li>
-  `
+    ${Button({ dataId: post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
+    </div>
+    </li>
+    `
   }else {
-    `<li>`
+    ostTemplate += `
+    </div>
+    </li>
+    `
   }
   postList.innerHTML += postTemplate;
 }
@@ -126,6 +132,7 @@ function editPost(event) {
   // console.log('rodou edit');
   const posteditor = document.getElementById(postid)
   posteditor.setAttribute('contenteditable', 'true');
+  const savebtn = document.getElementsByClassName('btn-save').classList.remove('hidden')
 }
 
 function save(event) {
@@ -139,6 +146,8 @@ function save(event) {
       text: newtext,
     });
   posteditor.setAttribute('contenteditable', 'false');
+  const savebtn = document.getElementsByClassName('btn-save').classList.add('hidden')
+
 }
 
 window.app = {

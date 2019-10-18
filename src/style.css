@@ -130,6 +130,9 @@ button {
 button:hover {
   background: #FBF5EF;
 }
+.hidden {
+  display: none;
+}
 
 @media (min-width: 540px) {
   .login-layout {
