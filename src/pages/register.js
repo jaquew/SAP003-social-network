@@ -8,10 +8,10 @@ function btnRegister() {
   let name = document.querySelector('.js-name-register').value;
   let lastname = document.querySelector('.js-lastname-register').value;
   let birthday = document.querySelector('.js-birthday-register').value;
-  firebase.auth().createUserWithEmailAndPassword(email, password).then( function () {
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
     user = firebase.auth().currentUser;
     if (user != null) {
-      uid = user.uid; 
+      uid = user.uid;
       window.location = '#home';
       db.collection('users').add({
         name: name,
@@ -20,13 +20,15 @@ function btnRegister() {
         email: email,
         uid: uid
       })
-    }     
+    }
     user.updateProfile({
       displayName: name
-    })})
+    })
+  })
 }
 
-function btnVoltar() {
+
+function btnBack() {
   window.location = '#login';
 }
 
@@ -40,13 +42,14 @@ function Register() {
       ${Input({ type: 'date', class: 'js-birthday-register', placeholder: 'Digite sua data' })}
       ${Input({ type: 'email', class: 'js-email-register', placeholder: 'Digite seu e-mail' })}
       ${Input({ type: 'password', class: 'js-password-register', placeholder: 'Digite a senha' })}
+      ${Input({ type: 'file', class: 'my-file'})}
       </form>
-      <form class="btn-register">
+      <form class="btnregister">
       ${Button({
-      class: 'js-btn-register', title: 'Registrar', id: 'btnRegister', onClick: btnRegister,
+      class: 'primary-button', title: 'Registrar', id: 'btnRegister', onClick: btnRegister,
     })}
       ${Button({
-      class: 'js-btn-voltar', title: 'Voltar', id: 'btnVoltar', onClick: btnVoltar,
+      class: 'primary-button', title: 'Voltar', id: 'btnBack', onClick: btnBack,
     })} 
       </form>
     </section>
