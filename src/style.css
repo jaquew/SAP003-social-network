@@ -1,5 +1,7 @@
 body {
+  background: #F0E9E5;
   box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin: 0;
 }
 
@@ -8,32 +10,38 @@ input {
   padding: 8px;
 }
 
-.login-layout, .register-layout {
-  text-align: center; 
+.login-layout,
+.register-layout {
+  text-align: center;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
   justify-content: space-evenly;
   width: 100%;
   height: 100vh;
-  background-color: #f5edda;
+  background-color: #F0E9E5;
 }
 
 .primary-button {
-  background-color: #e35b27;
+  background-color: #F76900;
   padding: 10px;
   font-size: 0.9rem;
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  color: #f5edda;
+  color: #F0E9E5;
 }
 
-.register-box :nth-child(n){
+.primary-button:hover {
+  background: #F7702C;
+}
+
+.register-box :nth-child(n) {
   margin: 10px;
 }
 
-.login-box, .register-box {
+.login-box,
+.register-box {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -46,18 +54,19 @@ input {
 }
 
 .btn-google {
-  color: #fff;;
+  color: #fff;
+  border-radius: 5px;
   background-color: #4686fd;
-  padding: 10px; 
+  padding: 10px;
   padding-left: 40px;
-  background-image:  url(images/iconfinder_2_939729.png);
+  background-image: url(images/iconfinder_2_939729.png);
   background-position: 1% 50%;
   background-repeat: no-repeat;
 }
 
 img.img-btn-google {
   margin: 0;
-  margin-right: 20px;  
+  margin-right: 20px;
 }
 
 
@@ -70,40 +79,74 @@ img.img-btn-google {
   /* max-height: 30%; */
 }
 
-.menu ul {
+.txt-area {
+  margin: 20px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.my-file {
   display: none;
 }
-.posts{
+
+.posts {
   display: flex;
   flex-direction: column-reverse;
   padding: 0 10px;
   margin: 0;
 }
 
-.posts li{
+.menu ul {
+  display: none;
+}
+
+.posts li {
   padding: 10px;
   margin: 10px 0;
   list-style: none;
-  border: solid 1px #1d6a96;
+  border: solid 1px #FBF5EF;
+  /*essa borda aquiii*/
   border-radius: 8px;
   overflow: auto;
-  background: rgb(255, 255, 255);
+  background: #F0E9E5;
+  /*#F0E9E5*/
+}
+
+.btn-icons,
+button {
+  background: #F0E9E5;
+  justify-content: flex-end;
+  display: flex;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 10px;
+}
+
+.btn-icons,
+button:hover {
+  background: #FBF5EF;
 }
 
 @media (min-width: 540px) {
-  .login-layout{
+  .login-layout {
     flex-direction: row;
     align-items: center
   }
-  .container{
+
+  .container {
     width: 40%;
   }
-  
-  #image{
+
+  #image {
     width: 60%;
   }
+
   .menu ul {
-    background-color: pink;
+    background-color: #F76900;
     list-style: none;
     width: 100%;
     display: flex;
@@ -111,25 +154,28 @@ img.img-btn-google {
     padding: 0;
     margin: 0;
   }
-  .menu ul li {  
+
+  .menu ul li {
     display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    font-size: 1.3em;
   }
+
   .menu {
     display: flex;
   }
 
   .menu ul li a {
     display: inline-block;
-    background-color: pink;
-    color: #009FFF;
+    background-color: #F76900;
+    color: #EDEDED;
     text-decoration: none;
-    border-bottom: 3px solid #EDEDED;
   }
 
   .menu ul li a:hover {
-    background-color: #D6D6D6;
-    color: #009FFF;
-    border-bottom: 3px solid #ec2F4B;
+    color: #EDEDED;
+    border-bottom: 3px solid #EDEDED;
   }
-  
+
 }
