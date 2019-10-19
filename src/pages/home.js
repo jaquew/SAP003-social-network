@@ -34,10 +34,10 @@ function Home() {
 }
 
 function btnPrint() {
-  const content = document.querySelector('.txtArea').value;
+  const content = document.querySelector('.txt-area').value;
   console.log(content)
   if (content !== null && content !== '') {
-    const textArea = document.querySelector('.txtArea').value
+    const textArea = document.querySelector('.txt-area').value
     const user = firebase.auth().currentUser;
     const post = {
       text: textArea,
@@ -53,7 +53,7 @@ function btnPrint() {
     firebase.firestore().collection('posts').add(post).then(res => {
       app.loadPosts()
     });
-    document.querySelector('.txtArea').value = ''
+    document.querySelector('.txt-area').value = ''
   }
 }
 //
