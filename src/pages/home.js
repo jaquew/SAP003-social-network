@@ -23,13 +23,10 @@ function Home() {
       ${Button({ id: 'btn-exit', class: 'primary-button',  title: 'SAIR', onClick: btnSignOut })}
     </nav>
 
-    <section>
-      <div class="txt-area">
-        <textarea class="txtArea" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
-      </div>
+    <section class="new-post">
+      <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
       ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
-      
-      </section>
+    </section>
 
     <ul class="posts"></ul>
   `;
@@ -51,6 +48,7 @@ function btnPrint() {
       privacy: 'public',
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }
+		console.log(post)
     // salvando o objeto no banco de dados
     firebase.firestore().collection('posts').add(post).then(res => {
       app.loadPosts()
@@ -65,28 +63,32 @@ function printPosts(post) {
   const atual = firebase.auth().currentUser.uid;
   const autor = post.data().user_id
 
-const postTemplate = `
-  <li> ${post.data().user_name}:
-  <span id="${post.id}">${post.data().text}</span>
-  <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
-  <div class="btn-icons">
-    ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes} 
-    ${Button({ dataId: post.id, class: 'btn-comment', title: '💬'})}
-  `
-  if (atual==autor) {
-    postTemplate += `
-    ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
-    ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
-    ${Button({ dataId: post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
-    </div>
-    </li>
-    `
-  }else {
-    ostTemplate += `
-    </div>
-    </li>
-    `
-  }
+	let postTemplate = `
+		<li> ${post.data().user_name}:
+		<span id="${post.id}">${post.data().text}</span>
+		<p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
+		<div class="btn-icons">
+			<div class="commom-btn">
+					${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes}
+					${Button({ dataId: post.id, class: 'btn-comment', title: '💬'})}
+			</div>
+		`
+	if (atual==autor) {
+		postTemplate += `
+				<div class="author-btn">
+				${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
+				${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
+				${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
+				</div>
+			</div>
+			</li>
+			`
+	} else {
+		postTemplate += `
+		</div>
+		</li>
+		`
+	}
   postList.innerHTML += postTemplate;
 }
 
@@ -106,14 +108,15 @@ function loadPosts() {
 function like(event) {
   const postid = event.target.dataset.id
   db.collection('posts').doc(postid).get()
-    .then(function (doc) {
-      let newlike = (doc.data().likes) + 1
-      db.collection('posts').doc(postid)
-        .update({
-          likes: newlike
-        })
-    })
-  app.loadPosts()
+		.then(function (doc) {
+			let newlike = (doc.data().likes) + 1
+			db.collection('posts').doc(postid)
+				.update({
+					likes: newlike
+				})
+		}).then(function () {
+			app.loadPosts()
+		})
 }
 
 function deletePost(event) {
@@ -128,11 +131,11 @@ function deletePost(event) {
 
 function editPost(event) {
   const postid = event.target.dataset.id
-  // console.log(postid);
-  // console.log('rodou edit');
   const posteditor = document.getElementById(postid)
+	posteditor.classList.add('edit-txt')
   posteditor.setAttribute('contenteditable', 'true');
-  const savebtn = document.getElementsByClassName('btn-save').classList.remove('hidden')
+	posteditor.focus();
+  const savebtn = document.getElementById('save-'+postid).classList.remove('hidden')
 }
 
 function save(event) {
@@ -146,7 +149,8 @@ function save(event) {
       text: newtext,
     });
   posteditor.setAttribute('contenteditable', 'false');
-  const savebtn = document.getElementsByClassName('btn-save').classList.add('hidden')
+  const savebtn = document.getElementById('save-'+postid).classList.add('hidden')
+	app.loadPosts()
 
 }
 
