@@ -84,6 +84,9 @@ img.img-btn-google {
 	align-items: center;
 	margin: 10px 0;
 }
+#post-area{
+    width: 80%;
+}
 
 .txt-area {
   margin: 20px;
@@ -119,6 +122,9 @@ img.img-btn-google {
   overflow: auto;
   background: #F0E9E5;
   /*#F0E9E5*/
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
 }
 
 .btn-icons {

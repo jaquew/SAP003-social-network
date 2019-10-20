@@ -1,7 +1,7 @@
 import Button from '../components/button.js';
 // import Print from '../components/input.js'
 // import Input from '../components/input.js';
-const postColletion = firebase.firestore().collection('posts'),
+const postColletion = firebase.firestore().collection('posts');
 
 
 function btnSignOut() {
@@ -60,10 +60,14 @@ function btnPrint() {
 function printPosts(post) {
   const postList = document.querySelector('.posts');
   const atual = firebase.auth().currentUser.uid;
-  const autor = post.data().user_id;
+  const autor = post.data().user_id
+	let avatar = "https://api.adorable.io/avatars/70/" + post.data().user_name
 
 	let postTemplate = `
-		<li> ${post.data().user_name}:
+		<li>
+		<img src=${avatar}></img>
+		<div id="post-area">
+		${post.data().user_name}:
 		<span id="${post.id}">${post.data().text}</span>
 		<p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
 		<div class="btn-icons">
@@ -79,6 +83,7 @@ function printPosts(post) {
 				${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
 				${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
 				</div>
+			</div>
 			</div>
 			</li>
 			`
@@ -98,7 +103,7 @@ function loadPosts() {
     .orderBy('timestamp').get().then((snap) => {
       document.querySelector('.posts').innerHTML = '';
       snap.forEach((post) => {
-        const user = firebase.auth().currentUser;
+        // const user = firebase.auth().currentUser;
         printPosts(post);
       });
     });
