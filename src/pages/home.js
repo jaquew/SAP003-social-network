@@ -62,9 +62,13 @@ function printPosts(post) {
 
   const atual = firebase.auth().currentUser.uid;
   const autor = post.data().user_id
+	let avatar = "https://api.adorable.io/avatars/70/" + post.data().user_name
 
 	let postTemplate = `
-		<li> ${post.data().user_name}:
+		<li>
+		<img src=${avatar}></img>
+		<div id="post-area">
+		${post.data().user_name}:
 		<span id="${post.id}">${post.data().text}</span>
 		<p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
 		<div class="btn-icons">
@@ -81,6 +85,7 @@ function printPosts(post) {
 				${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
 				</div>
 			</div>
+			</div>
 			</li>
 			`
 	} else {
@@ -95,14 +100,16 @@ function printPosts(post) {
 function loadPosts() {
   // const postList = document.querySelector('.posts')
   postColletion
-    // .where('user_id', '===', 'user.uid')
+    // .where('doc.user_id', '==','firebase.auth().currentUser.uid')
     .get().then(snap => {
       document.querySelector('.posts').innerHTML = ''
       snap.forEach(post => {
-        const user = firebase.auth().currentUser
+        // const user = firebase.auth().currentUser
         printPosts(post)
       })
     })
+		// console.log(postCollection.doc.user_id);
+
 }
 
 function like(event) {
