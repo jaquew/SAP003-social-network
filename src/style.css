@@ -87,6 +87,9 @@ img.img-btn-google {
 #post-area{
     width: 80%;
 }
+.avatar{
+	width: 40px;
+}
 
 .txt-area {
   margin: 20px;
@@ -113,7 +116,7 @@ img.img-btn-google {
 }
 
 .posts li {
-  padding: 20px;
+  padding: 20px 0;
   margin: 10px 0;
   list-style: none;
   border: solid 1px #FBF5EF;
@@ -213,7 +216,16 @@ img.img-btn-google {
     border-bottom: 3px solid #EDEDED;
   }
 	.txt-area {
-		width: 60%;
+			width: 60%;
+	}
+	#post-area{
+    width: 60%;
+	}
+	.avatar{
+	width: 70px;
+	}
+	.posts li {
+		justify-content: space-evenly;
 	}
 
 }

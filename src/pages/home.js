@@ -65,7 +65,7 @@ function printPosts(post) {
 
 	let postTemplate = `
 		<li>
-		<img src=${avatar}></img>
+		<img class="avatar" src=${avatar}></img>
 		<div id="post-area">
 		${post.data().user_name}:
 		<span id="${post.id}">${post.data().text}</span>
