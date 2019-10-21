@@ -1,5 +1,4 @@
 import Button from '../components/button.js';
-// import Print from '../components/input.js'
 import Input from '../components/input.js';
 const postColletion = firebase.firestore().collection('posts');
 
@@ -74,62 +73,76 @@ function printPosts(post) {
 			    <div class="commom-btn">
 					  ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes}
             ${Button({ dataId: post.id, class: 'btn-comment', title: '💬', onClick: comment})}
-          </div>
-        <div>
-        <input type='text' class=''>
-        ${Input({ class: 'comments-class', placeholder: 'Escreva seu comentário', type: 'text' })}
-        <p>${post.data().coments}</p>
-      </div>
-      `
+          </div>        
+        `
   if (atual == autor) {
     postTemplate += `
 				<div class="author-btn">
 				  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
 				  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
 				  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
-				</div>
+        </div>
+      </div>
+      <div id='comment-div-${post.id}'>
+        <p>${post.data().coments}</p>
+        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'hidden', placeholder: 'Escreva um comentário' })}
+        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai'})}        
+        
+      </div>
 		</li>
 		`
   } else {
-    postTemplate += `
-		</div>
+    postTemplate += `    
+    </div>
+      <div id='comment-div-${post.id}'>
+        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'hidden', placeholder: 'Escreva um comentário' })}
+        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnSendComment})}        
+        <p>${post.data().coments}</p>
+      </div>
 		</li>
 		`
   }
+
+  
   postList.innerHTML += postTemplate;
 }
 
 
 function loadPosts() {
   // const postList = document.querySelector('.posts')
-  postColletion
-    // .where('user_id', '===', 'user.uid')
-    .orderBy('timestamp').get().then((snap) => {
-      document.querySelector('.posts').innerHTML = '';
-      snap.forEach((post) => {
-        // const user = firebase.auth().currentUser;
-        printPosts(post);
-      });
+  postColletion.orderBy('timestamp').get().then((snap) => {
+    document.querySelector('.posts').innerHTML = '';
+    snap.forEach((post) => {
+      // const user = firebase.auth().currentUser;
+      printPosts(post);
     });
+  });
 }
 
-function comment(event) {
-  console.log('tá rolando comentário')
-  const comments = document.querySelector('.comments-class').value
-  console.log(comments)
+function btnSendComment () {
 
+}
+
+function comment() {
   const postid = event.target.dataset.id;
-  //console.log(postid)
-  db.collection('posts').doc(postid).get().then((doc) => {
-    //const posteditor = document.getElementById(postid);
-    const newComment = doc.data().coments;
-    db.collection('posts').doc(postid)
-      .update({
-        coments: newComment,
-      }).then(() => {
-        app.loadPosts();
-      })
-  })
+  console.log(postid)
+  console.log('tá rolando comentário')
+  const comments = document.getElementById(`comment-div-${postid}`)
+
+  document.getElementById('input-comment-' + postid).classList.remove('hidden');
+  document.getElementById('btn-comment-' + postid).classList.remove('hidden');
+
+
+  // db.collection('posts').doc(postid).get().then((doc) => {
+    // const posteditor = document.getElementById(postid);
+    // const newComment = doc.data().coments;
+    // db.collection('posts').doc(postid)
+      // .update({
+        // coments: newComment,
+      // }).then(() => {
+        // app.loadPosts();
+      // })
+  // })
 }
 
 
@@ -164,7 +177,7 @@ function editPost(event) {
   posteditor.classList.add('edit-txt');
   posteditor.setAttribute('contenteditable', 'true');
   posteditor.focus();
-  const savebtn = document.getElementById('save-' + postid).classList.remove('hidden');
+  document.getElementById('save-' + postid).classList.remove('hidden');
 }
 
 function save(event) {
@@ -178,7 +191,7 @@ function save(event) {
       text: newtext,
     });
   posteditor.setAttribute('contenteditable', 'false');
-  const savebtn = document.getElementById('save-' + postid).classList.add('hidden');
+  document.getElementById('save-' + postid).classList.add('hidden');
   app.loadPosts();
 }
 
