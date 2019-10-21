@@ -37,11 +37,13 @@ function Register() {
     <section class="register-layout">
       <h1>Registre-se!</h1>
       <form class="register-box">
-      ${Input({ type: 'text', class: 'js-name-register', placeholder: 'Digite seu nome' })}
-      ${Input({ type: 'text', class: 'js-lastname-register', placeholder: 'Digite seu sobrenome' })}
-      ${Input({ type: 'date', class: 'js-birthday-register', placeholder: 'Digite sua data' })}
-      ${Input({ type: 'email', class: 'js-email-register', placeholder: 'Digite seu e-mail' })}
-      ${Input({ type: 'password', class: 'js-password-register', placeholder: 'Digite a senha' })}
+      ${Input({ type: 'text', class: 'js-name-register', onBlur: nullFunction, placeholder: 'Digite seu nome' })}
+      ${Input({ type: 'text', class: 'js-lastname-register', onBlur: nullFunction, placeholder: 'Digite seu sobrenome' })}
+      ${Input({ type: 'date', class: 'js-birthday-register', onBlur: nullFunction, placeholder: 'Digite sua data' })}
+      ${Input({ type: 'email', class: 'js-email-register', onBlur: nullFunction, placeholder: 'Digite seu e-mail' })}
+      ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', onBlur: confirmEmail, placeholder: 'Digite seu e-mail novamente' })}
+      <p id='aviso'></p>
+      ${Input({ type: 'password', class: 'js-password-register', onBlur: nullFunction, placeholder: 'Digite a senha' })}
       ${Input({ type: 'file', class: 'my-file'})}
       </form>
       <form class="btnregister">
@@ -55,6 +57,22 @@ function Register() {
     </section>
   `;
   return template;
+}
+
+function confirmEmail() {
+  let email = document.querySelector('.js-email-register').value;
+  let emailConfirm = document.querySelector('.js-email-confirm').value;
+  if (email !== emailConfirm) {
+    document.querySelector('#aviso').innerHTML = 'E-mails não coincidem';
+    document.querySelector('#btnRegister').disabled = true;
+  } else {
+    document.querySelector('#aviso').innerHTML = '';
+    document.querySelector('#btnRegister').disabled = false;
+  }
+}
+
+function nullFunction() {
+  return undefined;
 }
 
 export default Register;
