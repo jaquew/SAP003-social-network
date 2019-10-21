@@ -14,9 +14,9 @@ function locationHashChanged() {
       case '#login':
         user ? window.location = '#home' : document.querySelector('main').innerHTML = Login()
         break;
-      case '#profile':
-        user ? document.querySelector('main').innerHTML = Profile() : window.location = '#login'
-        break;
+        //case '#profile':
+        //  user ? document.querySelector('main').innerHTML = Profile() : window.location = '#login'
+        //  break;
       default:
         window.location = '#login'
     }

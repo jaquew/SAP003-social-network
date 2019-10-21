@@ -1,6 +1,6 @@
 import Button from '../components/button.js';
 // import Print from '../components/input.js'
-// import Input from '../components/input.js';
+import Input from '../components/input.js';
 const postColletion = firebase.firestore().collection('posts');
 
 
@@ -35,7 +35,7 @@ function Home() {
 
 function btnPrint() {
   const content = document.querySelector('.txt-area').value;
-  console.log(content)
+  //console.log(content)
   if (content !== null && content !== '') {
     const textArea = document.querySelector('.txt-area').value;
     const user = firebase.auth().currentUser;
@@ -48,7 +48,7 @@ function btnPrint() {
       privacy: 'public',
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
-		console.log(post)
+    console.log(post)
     // salvando o objeto no banco de dados
     firebase.firestore().collection('posts').add(post).then(() => {
       app.loadPosts();
@@ -56,45 +56,49 @@ function btnPrint() {
     document.querySelector('.txt-area').value = '';
   }
 }
-//
+
 function printPosts(post) {
   const postList = document.querySelector('.posts');
   const atual = firebase.auth().currentUser.uid;
   const autor = post.data().user_id
-	let avatar = "https://api.adorable.io/avatars/70/" + post.data().user_name
+  let avatar = "https://api.adorable.io/avatars/70/" + post.data().user_name
 
-	let postTemplate = `
+  let postTemplate = `
 		<li>
-		<img class="avatar" src=${avatar}></img>
-		<div id="post-area">
-		${post.data().user_name}:
-		<span id="${post.id}">${post.data().text}</span>
-		<p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
-		<div class="btn-icons">
-			<div class="commom-btn">
-					${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes}
-					${Button({ dataId: post.id, class: 'btn-comment', title: '💬'})}
-			</div>
-		`
-	if (atual==autor) {
-		postTemplate += `
+		  <img class="avatar" src=${avatar}></img>
+		  <div id="post-area">
+		    ${post.data().user_name}:
+		    <span id="${post.id}">${post.data().text}</span>
+		    <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
+		    <div class="btn-icons">
+			    <div class="commom-btn">
+					  ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes}
+            ${Button({ dataId: post.id, class: 'btn-comment', title: '💬', onClick: comment})}
+          </div>
+        <div>
+        <input type='text' class=''>
+        ${Input({ class: 'comments-class', placeholder: 'Escreva seu comentário', type: 'text' })}
+        <p>${post.data().coments}</p>
+      </div>
+      `
+  if (atual == autor) {
+    postTemplate += `
 				<div class="author-btn">
-				${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
-				${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
-				${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
+				  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
+				  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
+				  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
 				</div>
-			</div>
-			</div>
-			</li>
-			`
-	} else {
-		postTemplate += `
+		</li>
+		`
+  } else {
+    postTemplate += `
 		</div>
 		</li>
 		`
-	}
+  }
   postList.innerHTML += postTemplate;
 }
+
 
 function loadPosts() {
   // const postList = document.querySelector('.posts')
@@ -108,7 +112,28 @@ function loadPosts() {
       });
     });
 }
-// firebase.firestore().collection('posts')
+
+function comment(event) {
+  console.log('tá rolando comentário')
+  const comments = document.querySelector('.comments-class').value
+  console.log(comments)
+
+  const postid = event.target.dataset.id;
+  //console.log(postid)
+  db.collection('posts').doc(postid).get().then((doc) => {
+    //const posteditor = document.getElementById(postid);
+    const newComment = doc.data().coments;
+    db.collection('posts').doc(postid)
+      .update({
+        coments: newComment,
+      }).then(() => {
+        app.loadPosts();
+      })
+  })
+}
+
+
+
 
 function like(event) {
   const postid = event.target.dataset.id;
@@ -139,7 +164,7 @@ function editPost(event) {
   posteditor.classList.add('edit-txt');
   posteditor.setAttribute('contenteditable', 'true');
   posteditor.focus();
-  const savebtn = document.getElementById('save-'+postid).classList.remove('hidden');
+  const savebtn = document.getElementById('save-' + postid).classList.remove('hidden');
 }
 
 function save(event) {
@@ -153,7 +178,7 @@ function save(event) {
       text: newtext,
     });
   posteditor.setAttribute('contenteditable', 'false');
-  const savebtn = document.getElementById('save-'+postid).classList.add('hidden');
+  const savebtn = document.getElementById('save-' + postid).classList.add('hidden');
   app.loadPosts();
 }
 
