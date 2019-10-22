@@ -1,14 +1,26 @@
 function Input(props) {
-    const template = `
+  const template = `
       <input
       class='${props.class}'
       data-id='${props.dataId}'
       placeholder='${props.placeholder}'
-      type='${props.type}'
-      id='${props.id}' />
+      type='${props.type}' 
+      id='${props.id}'
+      onblur="input.handleClick(event, ${props.onBlur})"/>
     `;
-    return template;
-  }
+  return template;
+}
+
+window.input = {
+  handleClick: (event, callback) => {
+    event.preventDefault();
+    if (callback === undefined) {
+      return undefined;
+    } else {
+      callback(event);
+    }
+  },
+};
 
 // window.input = {
   // component: Input
