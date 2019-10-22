@@ -93,30 +93,31 @@ function printPosts(post) {
         `
   if (atual == autor) {
     postTemplate += `
-				<div class="author-btn">
-				  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
-				  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
-				  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
-        </div>
+			<div class="author-btn">
+			  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
+			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
+			  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
+      </div>`/*
       <div id='comment-div-${post.id}'>
-        ${post.data().comments.forEach(item => `<p>${item.comment}</p>`)}
+        ${post.data().comments.map(item => `<p>${item.comment}</p>`).join('')}
         ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
         ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}        
-        
+      
       </div>
 		</li>
 		`
-  } else {
-    postTemplate += `    
-    </div>
-      <div id='comment-div-${post.id}'>
-        ${post.data().comments.forEach(item => `<p>${item.comment}</p>`)}
+  } else {*/
+  }
+  console.log('pega essa bagaça', post.data().comments)
+  postTemplate += `
+  <div id='comment-div-${post.id}'>
+  ${post.data().comments.map(item => `<p>${item.comment}</p>`).join('')}
         ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
         ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}
       </div>
 		</li>
 		`
-  }
+  
   postList.innerHTML += postTemplate;
 }
 
@@ -141,8 +142,8 @@ function btnPrintComment(event) {
       comments: firebase.firestore.FieldValue.arrayUnion({
         comment,
       })      
-    })    
-  })
+    }) //${post.data().comments.forEach(item => `<p>${item.comment}</p>`)}   
+})
   // .then(res => console.log(res))
 }
 
