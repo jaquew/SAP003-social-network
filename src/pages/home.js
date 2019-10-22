@@ -1,5 +1,6 @@
 import Button from '../components/button.js';
 import Input from '../components/input.js';
+// import Select from '../components/select.js';
 const postColletion = firebase.firestore().collection('posts');
 
 
@@ -10,6 +11,11 @@ function btnSignOut() {
     // An error happened.
   });
 }
+
+// const option = [
+//   { value: 'private', title: 'Somente para mim 🔐' },
+//   { value: 'public', title: 'Público 🔓' },
+// ];
 
 function Home() {
   app.loadPosts();
@@ -25,6 +31,11 @@ function Home() {
     <section class="new-post">
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
       ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
+      <select class="privacy" id="privacy">
+        <option value="nune" selected>Privacidade</option>
+        <option value="public">Público 🔓</option>
+        <option value="private">Somente para mim 🔐</option>
+      </select> 
     </section>
 
     <ul class="posts"></ul>
@@ -34,17 +45,22 @@ function Home() {
 
 function btnPrint() {
   const content = document.querySelector('.txt-area').value;
+  const filterPrivacy = document.getElementById('privacy').value;
+  // if (filterPrivacy === 'private') {
+    
+  // } else if (filterPrivacy === 'public') {
+    
+  // }
   //console.log(content)
   if (content !== null && content !== '') {
-    const textArea = document.querySelector('.txt-area').value;
     const user = firebase.auth().currentUser;
     const post = {
-      text: textArea,
+      text: content,
       likes: 0,
       user_id: user.uid,
       user_name: user.displayName,
       coments: [],
-      privacy: 'public',
+      privacy: filterPrivacy,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
     console.log(post)
@@ -196,7 +212,23 @@ function save(event) {
   posteditor.setAttribute('contenteditable', 'false');
   document.getElementById('save-' + postid).classList.add('hidden');
   app.loadPosts();
-}
+};
+
+// const filter = document.getElementById("privacy");
+// filter.setAttribute('onchange', privacyPosts);
+
+// function postsPriv(condition) {
+//   if (condition === 'public') {
+//     console.log('publico');
+//   } else if (condition === 'private') {
+//     console.log('privado');
+//   }
+// }
+
+// function privacyPosts() {
+//   const privacy = document.getElementById('privacy');
+//   app.postsPriv(privacy.target.value);
+// }
 
 window.app = {
   loadPosts: loadPosts,
