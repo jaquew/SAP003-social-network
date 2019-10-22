@@ -86,7 +86,7 @@ function printPosts(post) {
       <div id='comment-div-${post.id}'>
         <p>${post.data().coments}</p>
         ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnSendComment })}        
+        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}        
         
       </div>
 		</li>
@@ -120,41 +120,36 @@ function loadPosts() {
 }
 
 function btnPrintComment() {
+  const postid = event.target.dataset.id;
   console.log('tá rolando btn-print-comentário')
-  const comments = document.querySelectorAll('.input-comment').value
-  const banana = document.querySelector('.banana')
+  //const comments = document.querySelectorAll('.input-comment').value
+  //const banana = document.querySelector('.banana')
+  //banana.innerHTML += comments
 
-  banana.innerHTML += comments
+  db.collection('posts').doc(postid).get().then((doc) => {
+    //const posteditor = document.getElementById(postid);
+    const comments = document.querySelectorAll('.input-comment').value
+    const newComment = doc.data().coments;
+    console.log(newComment)
+    db.collection('posts').doc(comments)
+      .update({
+        coments: newComment,
+      }).then(() => {
+        app.loadPosts();
+      })
+  })
 
   app.loadPosts();
-  console.log(String(comments))
+  //console.log(String(comments))
 }
 
 function comment() {
   const postid = event.target.dataset.id;
   //console.log(postid)
   //console.log('tá rolando comentário')
-  //const comments = document.getElementById(`comment-div-${postid}`)
-
   document.getElementById('input-comment-' + postid).classList.remove('hidden');
   document.getElementById('btn-comment-' + postid).classList.remove('hidden');
-
-
-
-  // db.collection('posts').doc(postid).get().then((doc) => {
-  // const posteditor = document.getElementById(postid);
-  // const newComment = doc.data().coments;
-  // db.collection('posts').doc(postid)
-  // .update({
-  // coments: newComment,
-  // }).then(() => {
-  // app.loadPosts();
-  // })
-  // })
 }
-
-
-
 
 function like(event) {
   const postid = event.target.dataset.id;
