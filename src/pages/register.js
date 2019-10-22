@@ -37,51 +37,36 @@ function Register() {
     <section class="register-layout">
       <h1>Registre-se!</h1>
       <form class="register-box">
-      ${Input({ type: 'text', class: 'js-name-register', onBlur: nullFunction, placeholder: 'Digite seu nome' })}
-      ${Input({ type: 'text', class: 'js-lastname-register', onBlur: nullFunction, placeholder: 'Digite seu sobrenome' })}
-      ${Input({ type: 'date', class: 'js-birthday-register', onBlur: nullFunction, placeholder: 'Digite sua data' })}
-      ${Input({ type: 'email', class: 'js-email-register', onBlur: nullFunction, placeholder: 'Digite seu e-mail' })}
-      ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', onBlur: confirmEmail, placeholder: 'Digite seu e-mail novamente' })}
+      ${Input({ type: 'text', class: 'js-name-register', id: 'name-register', placeholder: 'Digite seu nome' })}
+      ${Input({ type: 'text', class: 'js-lastname-register', id: 'lastname-register', placeholder: 'Digite seu sobrenome' })}
+      ${Input({ type: 'date', class: 'js-birthday-register', id: 'birthday-register', placeholder: 'Digite sua data' })}
+      ${Input({ type: 'email', class: 'js-email-register', id: 'email-register', placeholder: 'Digite seu e-mail' })}
+      ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', onBlur: confirmEmailPass, placeholder: 'Digite seu e-mail novamente' })}
+      ${Input({ type: 'password', class: 'js-password-register', id: 'password-register', placeholder: 'Digite a senha' })}
+      ${Input({ type: 'password', class: 'js-password-confirm', id: 'password-confirm', onBlur: confirmEmailPass, placeholder: 'Digite a senha novamente' })}
       <p id='aviso'></p>
-      ${Input({ type: 'password', class: 'js-password-register', onBlur: nullFunction, placeholder: 'Digite a senha' })}
-      ${Input({ type: 'password', class: 'js-password-confirm', onBlur: confirmPassword, placeholder: 'Digite a senha novamente' })}
-
-      ${Input({ type: 'file', class: 'my-file'})}
       </form>
       <form class="btnregister">
       ${Button({
-      class: 'primary-button', title: 'Registrar', id: 'btnRegister', onClick: btnRegister,
-    })}
+    class: 'primary-button', title: 'Registrar', id: 'btnRegister', onClick: btnRegister,
+  })}
       ${Button({
-      class: 'primary-button', title: 'Voltar', id: 'btnBack', onClick: btnBack,
-    })} 
+    class: 'primary-button', title: 'Voltar', id: 'btnBack', onClick: btnBack,
+  })} 
       </form>
     </section>
   `;
   return template;
 }
 
-function confirmEmail() {
+function confirmEmailPass() {
   let email = document.querySelector('.js-email-register').value;
   let emailConfirm = document.querySelector('.js-email-confirm').value;
-  const buttonRegister = document.querySelector('#btnRegister');
-  if (email !== emailConfirm) {
-    document.querySelector('#aviso').innerHTML = 'E-mails não coincidem';
-    buttonRegister.disabled = true;
-    buttonRegister.style.backgroundColor = '#808080';
-  } else {
-    document.querySelector('#aviso').innerHTML = '';
-    buttonRegister.disabled = false;
-    buttonRegister.style.backgroundColor = '#F76900';
-  }
-}
-
-function confirmPassword() {
   let password = document.querySelector('.js-password-register').value;
   let passwordConfirm = document.querySelector('.js-password-confirm').value;
   const buttonRegister = document.querySelector('#btnRegister');
-  if (password !== passwordConfirm) {
-    document.querySelector('#aviso').innerHTML = 'Senhas não coincidem';
+  if (email !== emailConfirm || password !== passwordConfirm) {
+    document.querySelector('#aviso').innerHTML = 'E-mails e/ou senhas não coincidem';
     buttonRegister.disabled = true;
     buttonRegister.style.backgroundColor = '#808080';
   } else {
@@ -89,10 +74,6 @@ function confirmPassword() {
     buttonRegister.disabled = false;
     buttonRegister.style.backgroundColor = '#F76900';
   }
-}
-
-function nullFunction() {
-  return undefined;
 }
 
 export default Register;

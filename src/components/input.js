@@ -13,7 +13,11 @@ function Input(props) {
 window.input = {
   handleClick: (event, callback) => {
     event.preventDefault();
-    callback(event);
+    if (callback === undefined) {
+      return undefined;
+    } else {
+      callback(event);
+    }
   },
 };
 
