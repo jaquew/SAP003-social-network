@@ -42,8 +42,9 @@ function Register() {
       ${Input({ type: 'date', class: 'js-birthday-register', id: 'birthday-register', placeholder: 'Digite sua data' })}
       ${Input({ type: 'email', class: 'js-email-register', id: 'email-register', placeholder: 'Digite seu e-mail' })}
       ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', onBlur: confirmEmailPass, placeholder: 'Digite seu e-mail novamente' })}
-      ${Input({ type: 'password', class: 'js-password-register', id: 'password-register', placeholder: 'Digite a senha' })}
-      ${Input({ type: 'password', class: 'js-password-confirm', id: 'password-confirm', onBlur: confirmEmailPass, placeholder: 'Digite a senha novamente' })}
+      ${Input({ type: 'password', class: 'js-password-register', id: 'password-register', placeholder: 'Digite a senha', onBlur: passValidation })}
+      <p id='pw-warn'></p>
+      ${Input({ type: 'password', class: 'js-password-confirm', id: 'password-confirm', onBlur: confirmEmailPass, placeholder: 'Digite a senha novamente'})}
       <p id='aviso'></p>
       </form>
       <form class="btnregister">
@@ -65,14 +66,37 @@ function confirmEmailPass() {
   let password = document.querySelector('.js-password-register').value;
   let passwordConfirm = document.querySelector('.js-password-confirm').value;
   const buttonRegister = document.querySelector('#btnRegister');
-  if (email !== emailConfirm || password !== passwordConfirm) {
-    document.querySelector('#aviso').innerHTML = 'E-mails e/ou senhas não coincidem';
+  if (email !== emailConfirm ) {
+    document.querySelector('#aviso').innerHTML = 'E-mails não coincidem';
+    buttonRegister.disabled = true;
+    buttonRegister.style.backgroundColor = '#808080';
+  } else if (passwordConfirm && password !== passwordConfirm) {
+    document.querySelector('#aviso').innerHTML = 'Senhas não coincidem';
     buttonRegister.disabled = true;
     buttonRegister.style.backgroundColor = '#808080';
   } else {
     document.querySelector('#aviso').innerHTML = '';
     buttonRegister.disabled = false;
     buttonRegister.style.backgroundColor = '#F76900';
+  }
+}
+
+function passValidation () {
+  let password = document.querySelector('.js-password-register').value;
+  const buttonRegister = document.querySelector('#btnRegister');
+  const re = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,}$/)
+  console.log(password);
+  const pass = document.getElementById('pw-warn')
+    pass.textContent = '';
+  if (password.match(re)){
+    console.log('sim')
+    buttonRegister.disabled = false;
+    buttonRegister.style.backgroundColor = '#F76900';
+  } else{
+    buttonRegister.disabled = true;
+    buttonRegister.style.backgroundColor = '#808080';
+    pass.textContent = 'A senha deve conter pelo menos 1 letra, 1 número e no mínimo 8 caracteres.'
+    console.log('não');
   }
 }
 
