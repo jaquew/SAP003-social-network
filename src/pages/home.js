@@ -43,7 +43,7 @@ function btnPrint() {
       likes: 0,
       user_id: user.uid,
       user_name: user.displayName,
-      coments: [],
+      comments: [],
       privacy: 'public',
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
@@ -82,11 +82,10 @@ function printPosts(post) {
 				  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
 				  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
         </div>
-      </div>
       <div id='comment-div-${post.id}'>
-        <p>${post.data().coments}</p>
-        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}        
+        ${post.data().comments.forEach(item => `<p>${item.comment}</p>`)}
+        ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
+        ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}        
         
       </div>
 		</li>
@@ -95,21 +94,17 @@ function printPosts(post) {
     postTemplate += `    
     </div>
       <div id='comment-div-${post.id}'>
-        <p class='banana'>${post.data().coments}</p>
-        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}
+        ${post.data().comments.forEach(item => `<p>${item.comment}</p>`)}
+        ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
+        ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}
       </div>
 		</li>
 		`
   }
-
-
   postList.innerHTML += postTemplate;
 }
 
-
 function loadPosts() {
-  // const postList = document.querySelector('.posts')
   postColletion.orderBy('timestamp').get().then((snap) => {
     document.querySelector('.posts').innerHTML = '';
     snap.forEach((post) => {
@@ -119,34 +114,24 @@ function loadPosts() {
   });
 }
 
-function btnPrintComment() {
-  const postid = event.target.dataset.id;
+function btnPrintComment(event) {
   console.log('tá rolando btn-print-comentário')
-  //const comments = document.querySelectorAll('.input-comment').value
-  //const banana = document.querySelector('.banana')
-  //banana.innerHTML += comments
-
-  db.collection('posts').doc(postid).get().then((doc) => {
-    //const posteditor = document.getElementById(postid);
-    const comments = document.querySelectorAll('.input-comment').value
-    const newComment = doc.data().coments;
-    console.log(newComment)
-    db.collection('posts').doc(comments)
-      .update({
-        coments: newComment,
-      }).then(() => {
-        app.loadPosts();
-      })
+  const postid = event.target.dataset.id;
+  // console.log(postid)  
+  const comment = document.querySelector('#input-comment-'+postid).value
+  db.collection('posts').doc().get().then(() => {
+    const docPost = db.collection('posts').doc(postid)
+    docPost.update({
+      comments: firebase.firestore.FieldValue.arrayUnion({
+        comment,
+      })      
+    })    
   })
-
-  app.loadPosts();
-  //console.log(String(comments))
+  // .then(res => console.log(res))
 }
 
 function comment() {
   const postid = event.target.dataset.id;
-  //console.log(postid)
-  //console.log('tá rolando comentário')
   document.getElementById('input-comment-' + postid).classList.remove('hidden');
   document.getElementById('btn-comment-' + postid).classList.remove('hidden');
 }
