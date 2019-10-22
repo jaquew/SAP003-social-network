@@ -1,0 +1,29 @@
+[debug] [2019-10-21T18:27:19.213Z] ----------------------------------------------------------------------
+[debug] [2019-10-21T18:27:19.215Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-10-21T18:27:19.215Z] CLI Version:   7.4.0
+[debug] [2019-10-21T18:27:19.215Z] Platform:      linux
+[debug] [2019-10-21T18:27:19.215Z] Node Version:  v10.16.3
+[debug] [2019-10-21T18:27:19.216Z] Time:          Mon Oct 21 2019 15:27:19 GMT-0300 (Brasilia Standard Time)
+[debug] [2019-10-21T18:27:19.216Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-21T18:27:19.221Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-21T18:27:19.221Z] > authorizing via signed-in user
+[debug] [2019-10-21T18:27:19.221Z] [iam] checking project social-network-squad3 for permissions ["firebase.projects.get"]
+[debug] [2019-10-21T18:27:19.223Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-10-21T18:27:19.223Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-10-21T18:27:19.828Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-21T18:27:19.835Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/social-network-squad3:testIamPermissions  
+
+[debug] [2019-10-21T18:27:20.932Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-21T18:27:20.935Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/social-network-squad3  
+ 
+[debug] [2019-10-21T18:27:22.302Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/laboratoria/SAP003-social-network'...
+[info] 
+[debug] [2019-10-21T18:27:22.309Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/social-network-squad3/webApps/-/config  
+ 
+[debug] [2019-10-21T18:27:23.565Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: src
+[info] ✔  hosting: Local server: http://localhost:5000

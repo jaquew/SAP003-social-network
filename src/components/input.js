@@ -21,5 +21,9 @@ window.input = {
   },
 };
 
+// window.input = {
+  // component: Input
+// }
+
 export default Input;
   
