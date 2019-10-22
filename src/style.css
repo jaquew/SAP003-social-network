@@ -78,17 +78,20 @@ img.img-btn-google {
   width: 100%;
   /* max-height: 30%; */
 }
-.new-post{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 10px 0;
+
+.new-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
 }
-#post-area{
-    width: 80%;
+
+#post-area {
+  width: 80%;
 }
-.avatar{
-	width: 40px;
+
+.avatar {
+  width: 40px;
 }
 
 .txt-area {
@@ -96,8 +99,8 @@ img.img-btn-google {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-	padding: 10px;
-	width: 80%;
+  padding: 10px;
+  width: 80%;
 }
 
 .my-file {
@@ -137,7 +140,7 @@ img.img-btn-google {
 }
 
 .btn-icons button {
-	border: none;
+  border: none;
   cursor: pointer;
   margin: 2px;
   padding: 15px;
@@ -147,26 +150,29 @@ img.img-btn-google {
   background: #FBF5EF;
 }
 
-.btn-delete{
-	background: rgb(255, 127, 123);
+.btn-delete {
+  background: rgb(255, 127, 123);
 }
-.btn-edit{
-	background: rgb(255, 235, 123);
+
+.btn-edit {
+  background: rgb(255, 235, 123);
 }
-.btn-save{
-	background: rgb(176, 255, 123);
+
+.btn-save {
+  background: rgb(176, 255, 123);
 }
 
 .hidden {
   display: none;
 }
+
 .edit-txt {
-	margin-top: 5px;
-	margin-left: 5px;
-	cursor: text;
-	border: 1px solid #aaa;
-	background: white;
-	padding: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  cursor: text;
+  border: 1px solid #aaa;
+  background: white;
+  padding: 5px;
 }
 
 @media (min-width: 540px) {
@@ -215,17 +221,21 @@ img.img-btn-google {
     color: #EDEDED;
     border-bottom: 3px solid #EDEDED;
   }
-	.txt-area {
-			width: 60%;
-	}
-	#post-area{
+
+  .txt-area {
     width: 60%;
-	}
-	.avatar{
-	width: 70px;
-	}
-	.posts li {
-		justify-content: space-evenly;
-	}
+  }
+
+  #post-area {
+    width: 60%;
+  }
+
+  .avatar {
+    width: 70px;
+  }
+
+  .posts li {
+    justify-content: space-evenly;
+  }
 
 }

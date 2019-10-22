@@ -85,8 +85,8 @@ function printPosts(post) {
       </div>
       <div id='comment-div-${post.id}'>
         <p>${post.data().coments}</p>
-        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai'})}        
+        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
+        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnSendComment })}        
         
       </div>
 		</li>
@@ -95,15 +95,15 @@ function printPosts(post) {
     postTemplate += `    
     </div>
       <div id='comment-div-${post.id}'>
-        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnSendComment})}        
-        <p>${post.data().coments}</p>
+        <p class='banana'>${post.data().coments}</p>
+        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
+        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}
       </div>
 		</li>
 		`
   }
 
-  
+
   postList.innerHTML += postTemplate;
 }
 
@@ -119,29 +119,37 @@ function loadPosts() {
   });
 }
 
-function btnSendComment () {
+function btnPrintComment() {
+  console.log('tá rolando btn-print-comentário')
+  const comments = document.querySelectorAll('.input-comment').value
+  const banana = document.querySelector('.banana')
 
+  banana.innerHTML += comments
+
+  app.loadPosts();
+  console.log(String(comments))
 }
 
 function comment() {
   const postid = event.target.dataset.id;
-  console.log(postid)
-  console.log('tá rolando comentário')
-  const comments = document.getElementById(`comment-div-${postid}`)
+  //console.log(postid)
+  //console.log('tá rolando comentário')
+  //const comments = document.getElementById(`comment-div-${postid}`)
 
   document.getElementById('input-comment-' + postid).classList.remove('hidden');
   document.getElementById('btn-comment-' + postid).classList.remove('hidden');
 
 
+
   // db.collection('posts').doc(postid).get().then((doc) => {
-    // const posteditor = document.getElementById(postid);
-    // const newComment = doc.data().coments;
-    // db.collection('posts').doc(postid)
-      // .update({
-        // coments: newComment,
-      // }).then(() => {
-        // app.loadPosts();
-      // })
+  // const posteditor = document.getElementById(postid);
+  // const newComment = doc.data().coments;
+  // db.collection('posts').doc(postid)
+  // .update({
+  // coments: newComment,
+  // }).then(() => {
+  // app.loadPosts();
+  // })
   // })
 }
 
