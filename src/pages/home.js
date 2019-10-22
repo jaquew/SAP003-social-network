@@ -109,10 +109,20 @@ function printPosts(post) {
 
 
 function loadPosts() {
+  const user = firebase.auth().currentUser
   // const postList = document.querySelector('.posts')
-  postColletion.orderBy('timestamp').get().then((snap) => {
+  console.log(user.uid);
+  
+  postColletion
+  .where('privacy','==','public')
+  //.orderBy('user_id')
+  //.orderBy('timestamp')
+  .get()  
+  .then((snap) => {
     document.querySelector('.posts').innerHTML = '';
     snap.forEach((post) => {
+      console.log(post.data().user_id);
+      
       // const user = firebase.auth().currentUser;
       printPosts(post);
     });
@@ -122,7 +132,7 @@ function loadPosts() {
 function btnPrintComment() {
   const postid = event.target.dataset.id;
   console.log('tá rolando btn-print-comentário')
-  //const comments = document.querySelectorAll('.input-comment').value
+  //const comments = document.query SelectorAll('.input-comment').value
   //const banana = document.querySelector('.banana')
   //banana.innerHTML += comments
 
