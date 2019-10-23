@@ -30,12 +30,13 @@ function Home() {
 
     <section class="new-post">
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
-      ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
-      <select class="privacy" id="privacy">
-        <option value="nune" selected>Privacidade</option>
-        <option value="public">Público 🔓</option>
-        <option value="private">Somente para mim 🔐</option>
-      </select> 
+      <div class="txt-btn">
+        <select class="privacy" id="privacy">
+          <option value="public">Público 🔓</option>
+          <option value="private">Somente para mim 🔐</option>
+        </select>
+        ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
+      </div>
     </section>
 
     <ul class="posts"></ul>
@@ -94,7 +95,7 @@ function printPosts(post) {
   if (atual == autor) {
     postTemplate += `
 				<div class="author-btn">
-				  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
+				  ${Button({ dataId: post.id, id: 'btn-edit-'+post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
 				  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
 				  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
         </div>
@@ -125,12 +126,17 @@ function printPosts(post) {
 
 
 function loadPosts() {
-  // const postList = document.querySelector('.posts')
-  postColletion.orderBy('timestamp').get().then((snap) => {
+  const user = firebase.auth().currentUser
+  
+  postColletion
+  .orderBy('timestamp')
+  .get()  
+  .then((snap) => {
     document.querySelector('.posts').innerHTML = '';
     snap.forEach((post) => {
-      // const user = firebase.auth().currentUser;
-      printPosts(post);
+      if (post.data().user_id == user.uid || post.data().privacy == 'public'){        
+        printPosts(post);
+      }
     });
   });
 }
@@ -138,7 +144,7 @@ function loadPosts() {
 function btnPrintComment() {
   const postid = event.target.dataset.id;
   console.log('tá rolando btn-print-comentário')
-  //const comments = document.querySelectorAll('.input-comment').value
+  //const comments = document.query SelectorAll('.input-comment').value
   //const banana = document.querySelector('.banana')
   //banana.innerHTML += comments
 
@@ -213,22 +219,6 @@ function save(event) {
   document.getElementById('save-' + postid).classList.add('hidden');
   app.loadPosts();
 };
-
-// const filter = document.getElementById("privacy");
-// filter.setAttribute('onchange', privacyPosts);
-
-// function postsPriv(condition) {
-//   if (condition === 'public') {
-//     console.log('publico');
-//   } else if (condition === 'private') {
-//     console.log('privado');
-//   }
-// }
-
-// function privacyPosts() {
-//   const privacy = document.getElementById('privacy');
-//   app.postsPriv(privacy.target.value);
-// }
 
 window.app = {
   loadPosts: loadPosts,

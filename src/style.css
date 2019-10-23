@@ -102,6 +102,11 @@ img.img-btn-google {
   padding: 10px;
   width: 80%;
 }
+.txt-btn{
+  display: flex;
+  justify-content: space-between;
+  width: 65%;
+}
 
 .my-file {
   display: none;
