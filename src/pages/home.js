@@ -1,21 +1,13 @@
 import Button from '../components/button.js';
 import Input from '../components/input.js';
-// import Select from '../components/select.js';
-const postColletion = firebase.firestore().collection('posts');
 
+const postColletion = firebase.firestore().collection('posts');
 
 function btnSignOut() {
   firebase.auth().signOut().then(() => {
     window.location = '#login';
-  }).catch(function (error) {
-    // An error happened.
-  });
+  })
 }
-
-// const option = [
-//   { value: 'private', title: 'Somente para mim 🔐' },
-//   { value: 'public', title: 'Público 🔓' },
-// ];
 
 function Home() {
   app.loadPosts();
@@ -27,7 +19,6 @@ function Home() {
       </ul>
       ${Button({ id: 'btn-exit', class: 'primary-button',  title: 'SAIR', onClick: btnSignOut })}
     </nav>
-
     <section class="new-post">
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
       <div class="txt-btn">
@@ -38,7 +29,6 @@ function Home() {
         ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
       </div>
     </section>
-
     <ul class="posts"></ul>
   `;
   return template;
@@ -65,7 +55,6 @@ function btnPrint() {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
     console.log(post)
-    // salvando o objeto no banco de dados
     firebase.firestore().collection('posts').add(post).then(() => {
       app.loadPosts();
     });
@@ -90,40 +79,32 @@ function printPosts(post) {
 			    <div class="commom-btn">
 					  ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes}
             ${Button({ dataId: post.id, class: 'btn-comment', title: '💬', onClick: comment})}
-          </div>        
+          </div>    
         `
   if (atual == autor) {
     postTemplate += `
-				<div class="author-btn">
-				  ${Button({ dataId: post.id, id: 'btn-edit-'+post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
-				  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
-				  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
-        </div>
+			<div class="author-btn">
+			  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
+			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
+			  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
       </div>
-      <div id='comment-div-${post.id}'>
-        <p>${post.data().coments}</p>
-        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}        
-        
-      </div>
-		</li>
-		`
-  } else {
-    postTemplate += `    
-    </div>
-      <div id='comment-div-${post.id}'>
-        <p class='banana'>${post.data().coments}</p>
-        ${Input({ type: 'text', id: 'input-comment-'+post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}
-      </div>
-		</li>
-		`
+   `
   }
-
-
+  if (post.data().comments !== undefined) {
+    console.log('pega essa bagaça', post.data().comments)
+    postTemplate += `
+      <div id='comment-div-${post.id}'>
+        ${post.data().comments.map(item => `<p>${item.userName}: ${item.comment}</p>`).join('')}
+      </div>
+    `
+  }
+  postTemplate += `
+        ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
+        ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}
+       </li>
+       `
   postList.innerHTML += postTemplate;
 }
-
 
 function loadPosts() {
   const user = firebase.auth().currentUser
@@ -141,34 +122,25 @@ function loadPosts() {
   });
 }
 
-function btnPrintComment() {
+function btnPrintComment(event) {
+  const userName = firebase.auth().currentUser.displayName
   const postid = event.target.dataset.id;
-  console.log('tá rolando btn-print-comentário')
-  //const comments = document.query SelectorAll('.input-comment').value
-  //const banana = document.querySelector('.banana')
-  //banana.innerHTML += comments
-
-  db.collection('posts').doc(postid).get().then((doc) => {
-    //const posteditor = document.getElementById(postid);
-    const comments = document.querySelectorAll('.input-comment').value
-    const newComment = doc.data().coments;
-    console.log(newComment)
-    db.collection('posts').doc(comments)
-      .update({
-        coments: newComment,
-      }).then(() => {
-        app.loadPosts();
-      })
+  const comment = document.querySelector('#input-comment-'+postid).value
+  db.collection('posts').doc().get().then(() => {
+    const docPost = db.collection('posts').doc(postid)
+    docPost.update({
+      comments: firebase.firestore.FieldValue.arrayUnion({
+        userName,
+        comment,
+      })      
+    })
+}).then(() => {
+    app.loadPosts()
   })
-
-  app.loadPosts();
-  //console.log(String(comments))
 }
 
 function comment() {
   const postid = event.target.dataset.id;
-  //console.log(postid)
-  //console.log('tá rolando comentário')
   document.getElementById('input-comment-' + postid).classList.remove('hidden');
   document.getElementById('btn-comment-' + postid).classList.remove('hidden');
 }
@@ -207,10 +179,8 @@ function editPost(event) {
 
 function save(event) {
   const postid = event.target.dataset.id;
-  // console.log(postid)
   const posteditor = document.getElementById(postid);
   const newtext = posteditor.textContent;
-  // console.log(newtext);
   db.collection('posts').doc(postid)
     .update({
       text: newtext,
