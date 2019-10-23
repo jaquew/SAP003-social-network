@@ -32,7 +32,6 @@ function Home() {
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
       ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
       <select class="privacy" id="privacy">
-        <option value="nune" selected>Privacidade</option>
         <option value="public">Público 🔓</option>
         <option value="private">Somente para mim 🔐</option>
       </select> 
@@ -126,21 +125,16 @@ function printPosts(post) {
 
 function loadPosts() {
   const user = firebase.auth().currentUser
-  // const postList = document.querySelector('.posts')
-  console.log(user.uid);
   
   postColletion
-  .where('privacy','==','public')
-  //.orderBy('user_id')
-  //.orderBy('timestamp')
+  .orderBy('timestamp')
   .get()  
   .then((snap) => {
     document.querySelector('.posts').innerHTML = '';
     snap.forEach((post) => {
-      console.log(post.data().user_id);
-      
-      // const user = firebase.auth().currentUser;
-      printPosts(post);
+      if (post.data().user_id == user.uid || post.data().privacy == 'public'){        
+        printPosts(post);
+      }
     });
   });
 }
@@ -223,22 +217,6 @@ function save(event) {
   document.getElementById('save-' + postid).classList.add('hidden');
   app.loadPosts();
 };
-
-// const filter = document.getElementById("privacy");
-// filter.setAttribute('onchange', privacyPosts);
-
-// function postsPriv(condition) {
-//   if (condition === 'public') {
-//     console.log('publico');
-//   } else if (condition === 'private') {
-//     console.log('privado');
-//   }
-// }
-
-// function privacyPosts() {
-//   const privacy = document.getElementById('privacy');
-//   app.postsPriv(privacy.target.value);
-// }
 
 window.app = {
   loadPosts: loadPosts,
