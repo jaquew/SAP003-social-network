@@ -21,12 +21,13 @@ function Home() {
     </nav>
     <section class="new-post">
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
-      ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
-      <select class="privacy" id="privacy">
-        <option value="nune" selected>Privacidade</option>
-        <option value="public">Público 🔓</option>
-        <option value="private">Somente para mim 🔐</option>
-      </select> 
+      <div class="txt-btn">
+        <select class="privacy" id="privacy">
+          <option value="public">Público 🔓</option>
+          <option value="private">Somente para mim 🔐</option>
+        </select>
+        ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
+      </div>
     </section>
     <ul class="posts"></ul>
   `;
@@ -106,10 +107,17 @@ function printPosts(post) {
 }
 
 function loadPosts() {
-  postColletion.orderBy('timestamp').get().then((snap) => {
+  const user = firebase.auth().currentUser
+  
+  postColletion
+  .orderBy('timestamp')
+  .get()  
+  .then((snap) => {
     document.querySelector('.posts').innerHTML = '';
     snap.forEach((post) => {
-      printPosts(post);
+      if (post.data().user_id == user.uid || post.data().privacy == 'public'){        
+        printPosts(post);
+      }
     });
   });
 }
