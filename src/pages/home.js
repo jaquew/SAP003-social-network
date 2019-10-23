@@ -30,11 +30,13 @@ function Home() {
 
     <section class="new-post">
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
-      ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
-      <select class="privacy" id="privacy">
-        <option value="public">Público 🔓</option>
-        <option value="private">Somente para mim 🔐</option>
-      </select> 
+      <div class="txt-btn">
+        <select class="privacy" id="privacy">
+          <option value="public">Público 🔓</option>
+          <option value="private">Somente para mim 🔐</option>
+        </select>
+        ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
+      </div>
     </section>
 
     <ul class="posts"></ul>
@@ -93,7 +95,7 @@ function printPosts(post) {
   if (atual == autor) {
     postTemplate += `
 				<div class="author-btn">
-				  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
+				  ${Button({ dataId: post.id, id: 'btn-edit-'+post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
 				  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
 				  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
         </div>
