@@ -67,6 +67,12 @@ function printPosts(post) {
   const atual = firebase.auth().currentUser.uid;
   const autor = post.data().user_id
   let avatar = "https://api.adorable.io/avatars/70/" + post.data().user_name
+  let privacytype = post.data().privacy
+  if (privacytype==='public'){
+    privacytype ='🔓'
+  } else{
+    privacytype = '🔐'
+  }
 
   let postTemplate = `
 		<li>
@@ -74,7 +80,9 @@ function printPosts(post) {
 		  <div id="post-area">
 		    ${post.data().user_name}:
 		    <span id="${post.id}">${post.data().text}</span>
-		    <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}</p>
+        <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}
+        ${privacytype}</p>
+        
 		    <div class="btn-icons">
 			    <div class="commom-btn">
 					  ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes}
@@ -88,10 +96,14 @@ function printPosts(post) {
 			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
 			  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
       </div>
+      </div>
    `
+  } else {
+    postTemplate += `</div>`
   }
+
   if (post.data().comments !== undefined) {
-    console.log('pega essa bagaça', post.data().comments)
+    //console.log('pega essa bagaça', post.data().comments)
     postTemplate += `
       <div id='comment-div-${post.id}'>
         ${post.data().comments.map(item => `<p>${item.userName}: ${item.comment}</p>`).join('')}
@@ -100,8 +112,9 @@ function printPosts(post) {
   }
   postTemplate += `
         ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'hidden', title: 'Manda ai', onClick: btnPrintComment })}
+        ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'primary-button hidden', title: 'Enviar', onClick: btnPrintComment })}
        </li>
+       </div>
        `
   postList.innerHTML += postTemplate;
 }
@@ -184,10 +197,13 @@ function save(event) {
   db.collection('posts').doc(postid)
     .update({
       text: newtext,
-    });
-  posteditor.setAttribute('contenteditable', 'false');
-  document.getElementById('save-' + postid).classList.add('hidden');
-  app.loadPosts();
+    }).then( () => {
+      posteditor.setAttribute('contenteditable', 'false');
+      document.getElementById('save-' + postid).classList.add('hidden');
+      app.loadPosts();
+
+    })
+  
 };
 
 window.app = {
