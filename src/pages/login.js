@@ -49,7 +49,7 @@ function googleLogin() {
 function Login() {
   const template = `
   <section class="login-layout">
-      <img src='./images/life fitness-S.png' id="image"></img>
+      <img src='./images/logo1.png' id="image"></img>
       <div class="container">
         <h2>Olá, bem vinda</h2>
         <form class="login-box">
