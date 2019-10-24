@@ -13,7 +13,7 @@ function btnRegister() {
     if (user != null) {
       uid = user.uid;
       window.location = '#home';
-      db.collection('users').add({
+      db.collection('users').doc(email).set({
         name: name,
         sobrenome: lastname,
         dn: birthday,
