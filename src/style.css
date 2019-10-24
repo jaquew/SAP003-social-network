@@ -15,7 +15,6 @@ input {
   text-align: center;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: space-evenly;
   width: 100%;
   height: 100vh;
@@ -77,7 +76,6 @@ img.img-btn-google {
 
 #image {
   width: 100%;
-  /* max-height: 30%; */
 }
 
 .new-post {
@@ -95,7 +93,19 @@ img.img-btn-google {
   width: 40px;
 }
 
+.comments-box {
+  border: 3px solid #FBF5EF;
+  font-size: 0.8em;
+  margin: 20px;
+  padding: 10px;
+}
+
 .user-name {
+  font-weight: bold;
+  margin: 0px;
+}
+
+.user-name-comment {
   font-weight: bold;
 }
 
@@ -127,10 +137,10 @@ img.img-btn-google {
 
 .time-area {
   color: #6E6E6E;
-  font-size: 0.8em;
+  font-size: 11px;
+  margin: 0;
+  margin-bottom: 15px;
 }
-
-/*//////////////////////////////////////*/
 
 .menu ul {
   display: none;
@@ -152,46 +162,67 @@ img.img-btn-google {
 }
 
 .btn-icons {
-  /* background: #F0E9E5; */
   justify-content: space-between;
   display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 .btn-icons button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 2px;
-  padding: 10px;
+  margin: 5px;
+  padding: 20px;
 }
 
 .btn-icons button:hover {
   background: #FBF5EF;
 }
 
-.btn-delete {
-  background: rgb(255, 127, 123);
+.btn-like {
+  background-image: url(./images/like.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0px;
 }
 
-.btn-edit {
-  background: rgb(255, 235, 123);
+.btn-comment {
+  background-image: url(./images/conversation.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .btn-save {
   background: rgb(176, 255, 123);
+  background-image: url(./images/save.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.btn-edit {
+  background: rgb(255, 235, 123);
+  background-image: url(./images/edit.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.btn-delete {
+  background: rgb(255, 127, 123);
+  background-image: url(./images/delete.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+
 }
 
 .icon-earth,
 .icon-padlock {
   width: 12px;
-}
-
-.icon-conversation,
-.icon-like,
-.icon-delete,
-.icon-edit,
-.icon-check {
-  width: 20px;
 }
 
 .hidden {

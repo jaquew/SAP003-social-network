@@ -79,34 +79,40 @@ function printPosts(post) {
 		<li>
 		  <img class="avatar" src=${avatar}></img>
 		  <div id="post-area">
-		    <span class="user-name">${post.data().user_name}:</span>
-		    <span id="${post.id}">${post.data().text}</span>
-        <p class="time-area">${post.data().timestamp.toDate().toLocaleString('pt-BR')}
-        ${privacytype}</p>
+        <p class="user-name">${post.data().user_name}</p>
+        
+		    
+        <p class="time-area">${post.data().timestamp.toDate().toLocaleString('pt-BR')} ${privacytype}
+        <p id="${post.id}">${post.data().text}</p>
+        <hr>
+        
         
 		    <div class="btn-icons">
 			    <div class="commom-btn">
-					  ${Button({dataId: post.id, class: 'btn-like', title: '<img class="icon-like" src="./images/like.svg"></img>', onClick: like})}${post.data().likes}
-            ${Button({ dataId: post.id, class: 'btn-comment', title: '<img class="icon-conversation" src="./images/conversation.svg"></img>', onClick: comment})}
+					  ${Button({dataId: post.id, class: 'btn-like', title: '', onClick: like})}${post.data().likes}
+            ${Button({ dataId: post.id, class: 'btn-comment', title: '', onClick: comment})}
           </div>    
         `
   if (atual == autor) {
     postTemplate += `
 			<div class="author-btn">
-			  ${Button({ dataId: post.id, class: 'btn-edit', title: '<img class="icon-edit" src="./images/edit.svg"></img>', onClick: editPost})}
-			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '<img class="icon-check" src="./images/check.svg"></img>', onClick: save})}
-			  ${Button({ dataId: post.id, class: 'btn-delete', title: '<img class="icon-delete" src="./images/delete.svg"></img>', onClick: deletePost})}
+			  ${Button({ dataId: post.id, class: 'btn-edit', title: '', onClick: editPost})}
+			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '', onClick: save})}
+			  ${Button({ dataId: post.id, class: 'btn-delete', title: '', onClick: deletePost})}
       </div>
       </div>
+      <hr>
    `
   } else {
-    postTemplate += `</div>`
+    postTemplate += `</div>
+    <hr>`
+
   }
 
-  if (post.data().comments !== undefined && post.data().comments !== '') {
+  if (post.data().comments !== undefined && post.data().comments !== "") {
     postTemplate += `
-      <div id='comment-div-${post.id}'>
-        ${post.data().comments.map(item => `<p>${item.userName}: ${item.comment}</p>`).join('')}
+      <div class='comments-box' id='comment-div-${post.id}'>
+        ${post.data().comments.map(item => `<p><span class="user-name-comment">${item.userName}: </span> <span>${item.comment}</span></p>`).join('')}
       </div>
     `
   }
