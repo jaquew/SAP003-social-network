@@ -179,19 +179,30 @@ img.img-btn-google {
   padding: 20px;
 }
 
-.btn-icons button:hover {
-  background: #FBF5EF;
-}
-
 .btn-like {
   background-image: url(./images/like.svg);
   background-size: 20px;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 0px;
+}
+
+.btn-like:hover {
+  background: #FBF5EF;
+  background-image: url(./images/like.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .btn-comment {
+  background-image: url(./images/conversation.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.btn-comment:hover {
+  background: #FBF5EF;
   background-image: url(./images/conversation.svg);
   background-size: 20px;
   background-position: center;
@@ -206,8 +217,24 @@ img.img-btn-google {
   background-repeat: no-repeat;
 }
 
+.btn-save:hover {
+  background: #FBF5EF;
+  background-image: url(./images/save.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .btn-edit {
   background: rgb(255, 235, 123);
+  background-image: url(./images/edit.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.btn-edit:hover {
+  background: #FBF5EF;
   background-image: url(./images/edit.svg);
   background-size: 20px;
   background-position: center;
@@ -220,7 +247,14 @@ img.img-btn-google {
   background-size: 20px;
   background-position: center;
   background-repeat: no-repeat;
+}
 
+.btn-delete:hover {
+  background: #FBF5EF;
+  background-image: url(./images/delete.svg);
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .icon-earth,
