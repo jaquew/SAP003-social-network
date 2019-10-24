@@ -123,7 +123,7 @@ function loadPosts() {
     .then((snap) => {
       document.querySelector('.posts').innerHTML = '';
       snap.forEach((post) => {
-        if (post.data().user_id == user.uid || post.data().privacy == 'public') {
+        if (post.data().user_id === user.uid || post.data().privacy === 'public') {
           printPosts(post);
         }
       });
@@ -134,21 +134,23 @@ function btnPrintComment(event) {
   const userName = firebase.auth().currentUser.displayName;
   const postid = event.target.dataset.id;
   const comment = document.querySelector('#input-comment-' + postid).value;
-  db.collection('posts').doc().get().then(() => {
-    const docPost = db.collection('posts').doc(postid);
-    docPost.update({
-      comments: firebase.firestore.FieldValue.arrayUnion({
-        userName,
-        comment,
-      })
-    });
-  })
-    .then(() => {
-      app.loadPosts();
-    });
+  if (comment !== null && comment !== '') {
+    db.collection('posts').doc().get().then(() => {
+      const docPost = db.collection('posts').doc(postid);
+      docPost.update({
+        comments: firebase.firestore.FieldValue.arrayUnion({
+          userName,
+          comment,
+        }),
+      });
+    })
+      .then(() => {
+        app.loadPosts();
+      });
+  }
 }
 
-function comment() {
+function comment(event) {
   const postid = event.target.dataset.id;
   document.getElementById('input-comment-' + postid).classList.remove('hidden');
   document.getElementById('btn-comment-' + postid).classList.remove('hidden');
