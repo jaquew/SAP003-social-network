@@ -78,6 +78,9 @@ img.img-btn-google {
   width: 100%;
 }
 
+#greetings {
+  text-align: center;
+}
 .new-post {
   display: flex;
   flex-direction: column;

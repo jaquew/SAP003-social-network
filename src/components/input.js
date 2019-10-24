@@ -14,17 +14,12 @@ function Input(props) {
 window.input = {
   handleClick: (event, callback) => {
     event.preventDefault();
-    if (callback === undefined) {
-      return undefined;
-    } else {
+    if (callback !== undefined) {
       callback(event);
+    } else {
+      return undefined;
     }
   },
 };
 
-// window.input = {
-  // component: Input
-// }
-
 export default Input;
-  
