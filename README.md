@@ -2,7 +2,7 @@
 
 A aplicação “Me tira uma dúvida?” tem como finalidade auxiliar de maneira rápida os usuários que possuem questões a serem respondidas, sendo utilizado como ferramenta para o compartilhamento de informações.
 
-[Site]()
+[App]()
 
 * [1. Prefácio](#1-prefácio)
 * [2. Autoria](#2-autoria)
