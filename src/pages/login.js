@@ -29,20 +29,21 @@ function buttonLogin() {
 function googleLogin() {
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).then(function () {
+    const user = firebase.auth().currentUser
     user.providerData.forEach(function (profile) {
-    db.collection('users').add({
-      name: profile.displayName,
-      email: profile.email,
-      uid: profile.uid,
-    // console.log('  Photo URL: ' + profile.photoURL);
+      db.collection('users').doc(profile.email).set({
+        name: profile.displayName,
+        email: profile.email,
+        uid: user.uid,
+      })
+    })
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        window.location = '#home';      
+      }
+    })
   })
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      window.location = '#home';      
-    }})
-  })
-  })
-  }   
+}   
 
 
 function Login() {
