@@ -59,7 +59,7 @@ function btnPrint() {
 
 function printPosts(post) {
   const postList = document.querySelector('.posts');
-  const atual = firebase.auth().currentUser.uid;
+  const atual = firebase.auth().currentUser;
   const autor = post.data().user_id;
   const avatar = "https://api.adorable.io/avatars/70/" + autor;
   let privacytype = post.data().privacy;
@@ -83,7 +83,7 @@ function printPosts(post) {
             ${Button({ dataId: post.id, class: 'btn-comment', title: '', onClick: comment})}
           </div>    
   `;
-  if (atual === autor) {
+  if (atual.uid === autor) {
     postTemplate += `
         <div class="author-btn">
           ${Button({ dataId: post.id, class: 'btn-edit', title: '', onClick: editPost})}
@@ -111,7 +111,7 @@ function printPosts(post) {
     </div>
   `;
   postList.innerHTML += postTemplate;
-  document.getElementById('greetings').innerHTML = `Olá, ${post.data().user_name}`;
+  document.getElementById('greetings').innerHTML = `Olá, ${atual.displayName}`;
 }
 
 function loadPosts() {
