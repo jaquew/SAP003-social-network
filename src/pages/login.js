@@ -18,10 +18,6 @@ function buttonLogin() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       window.location = '#home';
-      //console.log('conecta')
-      // User is signed in.
-    } else {
-      // No user is signed in.
     }
   });
 }
@@ -31,20 +27,25 @@ function googleLogin() {
   firebase.auth().signInWithPopup(provider).then(function () {
     const user = firebase.auth().currentUser
     user.providerData.forEach(function (profile) {
-      db.collection('users').doc(profile.email).set({
-        name: profile.displayName,
-        email: profile.email,
-        uid: user.uid,
-      })
-    })
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        window.location = '#home';      
-      }
-    })
-  })
+      db.collection('users').doc(profile.email).get().then(function(doc) {
+        if (!doc.exists) {
+          db.collection('users').doc(profile.email).set({
+            name: profile.displayName,
+            email: profile.email,
+            uid: user.uid,
+            dn: '',
+            sobrenome:'',
+          })
+        }
+      });
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          window.location = '#home';      
+        }
+      });
+    });
+  });
 }   
-
 
 function Login() {
   const template = `
