@@ -15,8 +15,8 @@ function Button(props) {
 
 window.button = {
   handleClick: (event, callback) => {
-    event.preventDefault()
-    callback(event)
+    event.preventDefault();
+    callback(event);
   },
 };
 

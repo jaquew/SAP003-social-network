@@ -6,7 +6,7 @@ const postColletion = firebase.firestore().collection('posts');
 function btnSignOut() {
   firebase.auth().signOut().then(() => {
     window.location = '#login';
-  })
+  });
 }
 
 function Home() {
@@ -16,7 +16,7 @@ function Home() {
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#profile">Perfil</a></li>
-        ${Button({ id: 'btn-exit', class: 'btn-exit',  title: 'SAIR', onClick: btnSignOut })}
+        ${Button({ id: 'btn-exit', class: 'btn-exit', title: 'SAIR', onClick: btnSignOut })}
       </ul>
       
     </nav>
@@ -38,12 +38,7 @@ function Home() {
 function btnPrint() {
   const content = document.querySelector('.txt-area').value;
   const filterPrivacy = document.getElementById('privacy').value;
-  // if (filterPrivacy === 'private') {
 
-  // } else if (filterPrivacy === 'public') {
-
-  // }
-  //console.log(content)
   if (content !== null && content !== '') {
     const user = firebase.auth().currentUser;
     const post = {
@@ -55,7 +50,6 @@ function btnPrint() {
       privacy: filterPrivacy,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
-    console.log(post)
     firebase.firestore().collection('posts').add(post).then(() => {
       app.loadPosts();
     });
@@ -66,47 +60,41 @@ function btnPrint() {
 function printPosts(post) {
   const postList = document.querySelector('.posts');
   const atual = firebase.auth().currentUser.uid;
-  const autor = post.data().user_id
-  let avatar = "https://api.adorable.io/avatars/70/" + post.data().user_name
-  let privacytype = post.data().privacy
+  const autor = post.data().user_id;
+  const avatar = "https://api.adorable.io/avatars/70/" + autor;
+  let privacytype = post.data().privacy;
   if (privacytype === 'public') {
-    privacytype = '<img class="icon-earth" src="./images/earth.svg"></img>'
+    privacytype = '<img class="icon-earth" src="./images/earth.svg"></img>';
   } else {
-    privacytype = '<img class="icon-padlock" src="./images/padlock.svg"></img>'
+    privacytype = '<img class="icon-padlock" src="./images/padlock.svg"></img>';
   }
 
   let postTemplate = `
-		<li>
-		  <img class="avatar" src=${avatar}></img>
-		  <div id="post-area">
-        <p class="user-name">${post.data().user_name}</p>
-        
-		    
+    <li>
+      <img class="avatar" src=${avatar}></img>
+      <div id="post-area">
+        <p class="user-name">${post.data().user_name}</p>     
         <p class="time-area">${post.data().timestamp.toDate().toLocaleString('pt-BR')} ${privacytype}
         <p id="${post.id}">${post.data().text}</p>
-        <hr>
-        
-        
-		    <div class="btn-icons">
-			    <div class="commom-btn">
-					  ${Button({dataId: post.id, class: 'btn-like', title: '', onClick: like})}${post.data().likes}
+        <hr>        
+        <div class="btn-icons">
+          <div class="commom-btn">
+            ${Button({dataId: post.id, class: 'btn-like', title: '', onClick: like})}${post.data().likes}
             ${Button({ dataId: post.id, class: 'btn-comment', title: '', onClick: comment})}
           </div>    
-        `
-  if (atual == autor) {
+  `;
+  if (atual === autor) {
     postTemplate += `
-			<div class="author-btn">
-			  ${Button({ dataId: post.id, class: 'btn-edit', title: '', onClick: editPost})}
-			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '', onClick: save})}
-			  ${Button({ dataId: post.id, class: 'btn-delete', title: '', onClick: deletePost})}
-      </div>
+        <div class="author-btn">
+          ${Button({ dataId: post.id, class: 'btn-edit', title: '', onClick: editPost})}
+          ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '', onClick: save})}
+          ${Button({ dataId: post.id, class: 'btn-delete', title: '', onClick: deletePost})}
+        </div>
       </div>
       <hr>
-   `
+    `;
   } else {
-    postTemplate += `</div>
-    <hr>`
-
+    postTemplate += '</div> <hr>';
   }
 
   if (post.data().comments !== undefined && post.data().comments !== "") {
@@ -114,19 +102,19 @@ function printPosts(post) {
       <div class='comments-box' id='comment-div-${post.id}'>
         ${post.data().comments.map(item => `<p><span class="user-name-comment">${item.userName}: </span> <span>${item.comment}</span></p>`).join('')}
       </div>
-    `
+    `;
   }
   postTemplate += `
-        ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
-        ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'primary-button hidden', title: 'Enviar', onClick: btnPrintComment })}
-       </li>
-       </div>
-       `
+    ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
+    ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'primary-button hidden', title: 'Enviar', onClick: btnPrintComment })}
+    </li>
+    </div>
+  `;
   postList.innerHTML += postTemplate;
 }
 
 function loadPosts() {
-  const user = firebase.auth().currentUser
+  const user = firebase.auth().currentUser;
 
   postColletion
     .orderBy('timestamp')
@@ -142,20 +130,21 @@ function loadPosts() {
 }
 
 function btnPrintComment(event) {
-  const userName = firebase.auth().currentUser.displayName
+  const userName = firebase.auth().currentUser.displayName;
   const postid = event.target.dataset.id;
-  const comment = document.querySelector('#input-comment-' + postid).value
+  const comment = document.querySelector('#input-comment-' + postid).value;
   db.collection('posts').doc().get().then(() => {
-    const docPost = db.collection('posts').doc(postid)
+    const docPost = db.collection('posts').doc(postid);
     docPost.update({
       comments: firebase.firestore.FieldValue.arrayUnion({
         userName,
         comment,
       })
-    })
-  }).then(() => {
-    app.loadPosts()
+    });
   })
+    .then(() => {
+      app.loadPosts();
+    });
 }
 
 function comment() {
@@ -207,13 +196,11 @@ function save(event) {
       posteditor.setAttribute('contenteditable', 'false');
       document.getElementById('save-' + postid).classList.add('hidden');
       app.loadPosts();
-
-    })
-
+    });
 };
 
 window.app = {
-  loadPosts: loadPosts,
+  loadPosts,
 };
 
 export default Home;

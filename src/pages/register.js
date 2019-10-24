@@ -2,29 +2,27 @@ import Button from '../components/button.js';
 import Input from '../components/input.js';
 
 function btnRegister() {
-  console.log('Tá rodando btnReg')
-  let email = document.querySelector('.js-email-register').value;
+  const email = document.querySelector('.js-email-register').value;
   const password = document.querySelector('.js-password-register').value;
-  let name = document.querySelector('.js-name-register').value;
-  let lastname = document.querySelector('.js-lastname-register').value;
-  let birthday = document.querySelector('.js-birthday-register').value;
+  const name = document.querySelector('.js-name-register').value;
+  const lastname = document.querySelector('.js-lastname-register').value;
+  const birthday = document.querySelector('.js-birthday-register').value;
   firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-    user = firebase.auth().currentUser;
+    const user = firebase.auth().currentUser;
     if (user != null) {
-      uid = user.uid;
       window.location = '#home';
       db.collection('users').doc(email).set({
         name: name,
         sobrenome: lastname,
         dn: birthday,
         email: email,
-        uid: uid
-      })
+        uid: user.uid,
+      });
     }
     user.updateProfile({
-      displayName: name
-    })
-  })
+      displayName: name,
+    });
+  });
 }
 
 
@@ -61,12 +59,12 @@ function Register() {
 }
 
 function confirmEmailPass() {
-  let email = document.querySelector('.js-email-register').value;
-  let emailConfirm = document.querySelector('.js-email-confirm').value;
-  let password = document.querySelector('.js-password-register').value;
-  let passwordConfirm = document.querySelector('.js-password-confirm').value;
+  const email = document.querySelector('.js-email-register').value;
+  const emailConfirm = document.querySelector('.js-email-confirm').value;
+  const password = document.querySelector('.js-password-register').value;
+  const passwordConfirm = document.querySelector('.js-password-confirm').value;
   const buttonRegister = document.querySelector('#btnRegister');
-  if (email !== emailConfirm ) {
+  if (email !== emailConfirm) {
     document.querySelector('#aviso').innerHTML = 'E-mails não coincidem';
     buttonRegister.disabled = true;
     buttonRegister.style.backgroundColor = '#808080';
@@ -81,22 +79,19 @@ function confirmEmailPass() {
   }
 }
 
-function passValidation () {
-  let password = document.querySelector('.js-password-register').value;
+function passValidation() {
+  const password = document.querySelector('.js-password-register').value;
   const buttonRegister = document.querySelector('#btnRegister');
-  const re = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,}$/)
-  console.log(password);
-  const pass = document.getElementById('pw-warn')
-    pass.textContent = '';
-  if (password.match(re)){
-    console.log('sim')
+  const re = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,}$/);
+  const pass = document.getElementById('pw-warn');
+  pass.textContent = '';
+  if (password.match(re)) {
     buttonRegister.disabled = false;
     buttonRegister.style.backgroundColor = '#F76900';
-  } else{
+  } else {
     buttonRegister.disabled = true;
     buttonRegister.style.backgroundColor = '#808080';
-    pass.textContent = 'A senha deve conter pelo menos 1 letra, 1 número e no mínimo 8 caracteres.'
-    console.log('não');
+    pass.textContent = 'A senha deve conter pelo menos 1 letra, 1 número e no mínimo 8 caracteres.';
   }
 }
 
