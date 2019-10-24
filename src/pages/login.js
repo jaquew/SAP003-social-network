@@ -14,7 +14,7 @@ function buttonLogin() {
       alert('Email ou senha inválido!');
     }
   });
-  firebase.auth().onAuthStateChanged( (user) => {
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       window.location = '#home';
     }
@@ -51,7 +51,7 @@ function Login() {
   <section class="login-layout">
       <img src='./images/logo1.png' id="image"></img>
       <div class="container">
-        <h2>Olá, bem vinda</h2>
+        <h2>Olá, bem-vindo</h2>
         <form class="login-box">
           ${Input({ class: 'input-email', placeholder: 'email', type: 'email' })}
 

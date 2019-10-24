@@ -81,6 +81,7 @@ img.img-btn-google {
 #greetings {
   text-align: center;
 }
+
 .new-post {
   display: flex;
   flex-direction: column;
@@ -98,8 +99,9 @@ img.img-btn-google {
 
 .comments-box {
   border: 3px solid #FBF5EF;
-  font-size: 0.8em;
-  margin: 20px;
+  border-radius: 5px;
+  font-size: 15px;
+  margin: 20px -5px;
   padding: 10px;
 }
 
@@ -154,14 +156,50 @@ img.img-btn-google {
   margin: 10px 0;
   list-style: none;
   border: solid 3px #FBF5EF;
-  /*essa borda aquiii*/
   border-radius: 8px;
   overflow: auto;
   background: #F0E9E5;
-  /*#F0E9E5*/
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 80px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -40px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 .btn-icons {

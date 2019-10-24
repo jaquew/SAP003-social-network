@@ -21,7 +21,7 @@ function Home() {
     </nav>
     <h3 id="greetings"></h3>
     <section class="new-post">
-      <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
+      <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua dúvida?"></textarea>
       <div class="txt-btn">
         <select class="privacy" id="privacy">
           <option value="public">Público 🔓</option>
@@ -64,9 +64,9 @@ function printPosts(post) {
   const avatar = "https://api.adorable.io/avatars/70/" + autor;
   let privacytype = post.data().privacy;
   if (privacytype === 'public') {
-    privacytype = '<img class="icon-earth" src="./images/earth.svg"></img>';
+    privacytype = '<span class="tooltip"><img class="icon-earth" src="./images/earth.svg"><span class="tooltip-text">Público</span></img></span>';
   } else {
-    privacytype = '<img class="icon-padlock" src="./images/padlock.svg"></img>';
+    privacytype = '<span class="tooltip"><img class="icon-padlock" src="./images/padlock.svg"><span class="tooltip-text">Privado</span></img></span>';
   }
 
   let postTemplate = `
@@ -135,14 +135,14 @@ function btnPrintComment(event) {
   const postid = event.target.dataset.id;
   const comment = document.querySelector('#input-comment-' + postid).value;
   db.collection('posts').doc().get().then(() => {
-    const docPost = db.collection('posts').doc(postid);
-    docPost.update({
-      comments: firebase.firestore.FieldValue.arrayUnion({
-        userName,
-        comment,
-      })
-    });
-  })
+      const docPost = db.collection('posts').doc(postid);
+      docPost.update({
+        comments: firebase.firestore.FieldValue.arrayUnion({
+          userName,
+          comment,
+        })
+      });
+    })
     .then(() => {
       app.loadPosts();
     });
