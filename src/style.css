@@ -180,6 +180,7 @@ img.img-btn-google {
 }
 
 .btn-like {
+  background: rgb(199, 165, 255);
   background-image: url(./images/like.svg);
   background-size: 20px;
   background-position: center;
@@ -187,14 +188,11 @@ img.img-btn-google {
 }
 
 .btn-like:hover {
-  background: #FBF5EF;
-  background-image: url(./images/like.svg);
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #FBF5EF;
 }
 
 .btn-comment {
+  background: rgb(123, 207, 255);
   background-image: url(./images/conversation.svg);
   background-size: 20px;
   background-position: center;
@@ -202,11 +200,7 @@ img.img-btn-google {
 }
 
 .btn-comment:hover {
-  background: #FBF5EF;
-  background-image: url(./images/conversation.svg);
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #FBF5EF;
 }
 
 .btn-save {
@@ -218,11 +212,7 @@ img.img-btn-google {
 }
 
 .btn-save:hover {
-  background: #FBF5EF;
-  background-image: url(./images/save.svg);
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #FBF5EF;
 }
 
 .btn-edit {
@@ -250,11 +240,7 @@ img.img-btn-google {
 }
 
 .btn-delete:hover {
-  background: #FBF5EF;
-  background-image: url(./images/delete.svg);
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #FBF5EF;
 }
 
 .icon-earth,
