@@ -23,7 +23,8 @@ input {
 }
 
 .primary-button {
-  background-color: #F76900;
+  background-color: #5108B0;
+  /*F76900*/
   padding: 10px;
   font-size: 0.9rem;
   border-radius: 5px;
@@ -33,7 +34,7 @@ input {
 }
 
 .primary-button:hover {
-  background: #F7702C;
+  background: #4458be;
 }
 
 .register-box :nth-child(n) {
@@ -94,6 +95,10 @@ img.img-btn-google {
   width: 40px;
 }
 
+.user-name {
+  font-weight: bold;
+}
+
 .txt-area {
   margin: 20px;
   -webkit-border-radius: 5px;
@@ -102,7 +107,8 @@ img.img-btn-google {
   padding: 10px;
   width: 80%;
 }
-.txt-btn{
+
+.txt-btn {
   display: flex;
   justify-content: space-between;
   width: 65%;
@@ -119,6 +125,13 @@ img.img-btn-google {
   margin: 10px;
 }
 
+.time-area {
+  color: #6E6E6E;
+  font-size: 0.8em;
+}
+
+/*//////////////////////////////////////*/
+
 .menu ul {
   display: none;
 }
@@ -127,7 +140,7 @@ img.img-btn-google {
   padding: 20px 0;
   margin: 10px 0;
   list-style: none;
-  border: solid 1px #FBF5EF;
+  border: solid 3px #FBF5EF;
   /*essa borda aquiii*/
   border-radius: 8px;
   overflow: auto;
@@ -146,9 +159,10 @@ img.img-btn-google {
 
 .btn-icons button {
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   margin: 2px;
-  padding: 15px;
+  padding: 10px;
 }
 
 .btn-icons button:hover {
@@ -165,6 +179,19 @@ img.img-btn-google {
 
 .btn-save {
   background: rgb(176, 255, 123);
+}
+
+.icon-earth,
+.icon-padlock {
+  width: 12px;
+}
+
+.icon-conversation,
+.icon-like,
+.icon-delete,
+.icon-edit,
+.icon-check {
+  width: 20px;
 }
 
 .hidden {
@@ -195,12 +222,11 @@ img.img-btn-google {
   }
 
   .menu ul {
-    background-color: #F76900;
+    background-color: #5108B0;
     list-style: none;
-    width: 100%;
+    /*width: 100%;*/
     display: flex;
     justify-content: space-around;
-    padding: 0;
     margin: 0;
   }
 
@@ -211,20 +237,31 @@ img.img-btn-google {
     font-size: 1.3em;
   }
 
-  .menu {
-    display: flex;
+  .menu a {
+    text-decoration: none;
+  }
+
+  .btn-exit {
+    border: none;
+    background: #5108B0;
+    color: #EDEDED;
+    font-size: 1em;
+  }
+
+  .btn-exit:hover {
+    border-bottom: 1px solid #EDEDED;
   }
 
   .menu ul li a {
     display: inline-block;
-    background-color: #F76900;
+    background-color: #5108B0;
     color: #EDEDED;
-    text-decoration: none;
   }
 
   .menu ul li a:hover {
-    color: #EDEDED;
-    border-bottom: 3px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
+    /*color: #EDEDED;
+    border-bottom: 3px solid #EDEDED;*/
   }
 
   .txt-area {

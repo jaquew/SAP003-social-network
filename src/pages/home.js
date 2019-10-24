@@ -16,8 +16,9 @@ function Home() {
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#profile">Perfil</a></li>
+        ${Button({ id: 'btn-exit', class: 'btn-exit',  title: 'SAIR', onClick: btnSignOut })}
       </ul>
-      ${Button({ id: 'btn-exit', class: 'primary-button',  title: 'SAIR', onClick: btnSignOut })}
+      
     </nav>
     <section class="new-post">
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
@@ -38,9 +39,9 @@ function btnPrint() {
   const content = document.querySelector('.txt-area').value;
   const filterPrivacy = document.getElementById('privacy').value;
   // if (filterPrivacy === 'private') {
-    
+
   // } else if (filterPrivacy === 'public') {
-    
+
   // }
   //console.log(content)
   if (content !== null && content !== '') {
@@ -68,33 +69,33 @@ function printPosts(post) {
   const autor = post.data().user_id
   let avatar = "https://api.adorable.io/avatars/70/" + post.data().user_name
   let privacytype = post.data().privacy
-  if (privacytype==='public'){
-    privacytype ='🔓'
-  } else{
-    privacytype = '🔐'
+  if (privacytype === 'public') {
+    privacytype = '<img class="icon-earth" src="./images/earth.svg"></img>'
+  } else {
+    privacytype = '<img class="icon-padlock" src="./images/padlock.svg"></img>'
   }
 
   let postTemplate = `
 		<li>
 		  <img class="avatar" src=${avatar}></img>
 		  <div id="post-area">
-		    ${post.data().user_name}:
+		    <span class="user-name">${post.data().user_name}:</span>
 		    <span id="${post.id}">${post.data().text}</span>
-        <p>${post.data().timestamp.toDate().toLocaleString('pt-BR')}
+        <p class="time-area">${post.data().timestamp.toDate().toLocaleString('pt-BR')}
         ${privacytype}</p>
         
 		    <div class="btn-icons">
 			    <div class="commom-btn">
-					  ${Button({dataId: post.id, class: 'btn-like', title: '❤️', onClick: like})}${post.data().likes}
-            ${Button({ dataId: post.id, class: 'btn-comment', title: '💬', onClick: comment})}
+					  ${Button({dataId: post.id, class: 'btn-like', title: '<img class="icon-like" src="./images/like.svg"></img>', onClick: like})}${post.data().likes}
+            ${Button({ dataId: post.id, class: 'btn-comment', title: '<img class="icon-conversation" src="./images/conversation.svg"></img>', onClick: comment})}
           </div>    
         `
   if (atual == autor) {
     postTemplate += `
 			<div class="author-btn">
-			  ${Button({ dataId: post.id, class: 'btn-edit', title: '✏️', onClick: editPost})}
-			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '✔️', onClick: save})}
-			  ${Button({ dataId: post.id, class: 'btn-delete', title: '❌', onClick: deletePost})}
+			  ${Button({ dataId: post.id, class: 'btn-edit', title: '<img class="icon-edit" src="./images/edit.svg"></img>', onClick: editPost})}
+			  ${Button({ dataId: post.id, id: 'save-'+post.id, class: 'btn-save hidden', title: '<img class="icon-check" src="./images/check.svg"></img>', onClick: save})}
+			  ${Button({ dataId: post.id, class: 'btn-delete', title: '<img class="icon-delete" src="./images/delete.svg"></img>', onClick: deletePost})}
       </div>
       </div>
    `
@@ -102,8 +103,7 @@ function printPosts(post) {
     postTemplate += `</div>`
   }
 
-  if (post.data().comments !== undefined) {
-    //console.log('pega essa bagaça', post.data().comments)
+  if (post.data().comments !== undefined && post.data().comments !== '') {
     postTemplate += `
       <div id='comment-div-${post.id}'>
         ${post.data().comments.map(item => `<p>${item.userName}: ${item.comment}</p>`).join('')}
@@ -121,33 +121,33 @@ function printPosts(post) {
 
 function loadPosts() {
   const user = firebase.auth().currentUser
-  
+
   postColletion
-  .orderBy('timestamp')
-  .get()  
-  .then((snap) => {
-    document.querySelector('.posts').innerHTML = '';
-    snap.forEach((post) => {
-      if (post.data().user_id == user.uid || post.data().privacy == 'public'){        
-        printPosts(post);
-      }
+    .orderBy('timestamp')
+    .get()
+    .then((snap) => {
+      document.querySelector('.posts').innerHTML = '';
+      snap.forEach((post) => {
+        if (post.data().user_id == user.uid || post.data().privacy == 'public') {
+          printPosts(post);
+        }
+      });
     });
-  });
 }
 
 function btnPrintComment(event) {
   const userName = firebase.auth().currentUser.displayName
   const postid = event.target.dataset.id;
-  const comment = document.querySelector('#input-comment-'+postid).value
+  const comment = document.querySelector('#input-comment-' + postid).value
   db.collection('posts').doc().get().then(() => {
     const docPost = db.collection('posts').doc(postid)
     docPost.update({
       comments: firebase.firestore.FieldValue.arrayUnion({
         userName,
         comment,
-      })      
+      })
     })
-}).then(() => {
+  }).then(() => {
     app.loadPosts()
   })
 }
@@ -197,13 +197,13 @@ function save(event) {
   db.collection('posts').doc(postid)
     .update({
       text: newtext,
-    }).then( () => {
+    }).then(() => {
       posteditor.setAttribute('contenteditable', 'false');
       document.getElementById('save-' + postid).classList.add('hidden');
       app.loadPosts();
 
     })
-  
+
 };
 
 window.app = {
