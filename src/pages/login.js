@@ -30,25 +30,26 @@ function googleLogin() {
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).then(function () {
     user.providerData.forEach(function (profile) {
-    db.collection('users').add({
-      name: profile.displayName,
-      email: profile.email,
-      uid: profile.uid,
-    // console.log('  Photo URL: ' + profile.photoURL);
+      db.collection('users').add({
+        name: profile.displayName,
+        email: profile.email,
+        uid: profile.uid,
+        // console.log('  Photo URL: ' + profile.photoURL);
+      })
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          window.location = '#home';
+        }
+      })
+    })
   })
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      window.location = '#home';      
-    }})
-  })
-  })
-  }   
+}
 
 
 function Login() {
   const template = `
   <section class="login-layout">
-      <img src='./images/life fitness-S.png' id="image"></img>
+      <img src='./images/logo1.png' id="image"></img>
       <div class="container">
         <h2>Olá, bem vinda</h2>
         <form class="login-box">
