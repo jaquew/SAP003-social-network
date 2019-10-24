@@ -18,8 +18,8 @@ function Home() {
         <li><a href="#profile">Perfil</a></li>
         ${Button({ id: 'btn-exit', class: 'btn-exit', title: 'SAIR', onClick: btnSignOut })}
       </ul>
-      
     </nav>
+    <h3 id="greetings"></h3>
     <section class="new-post">
       <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua meta de hoje?"></textarea>
       <div class="txt-btn">
@@ -111,6 +111,7 @@ function printPosts(post) {
     </div>
   `;
   postList.innerHTML += postTemplate;
+  document.getElementById('greetings').innerHTML = `Olá, ${post.data().user_name}`;
 }
 
 function loadPosts() {
