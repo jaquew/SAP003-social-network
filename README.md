@@ -2,7 +2,7 @@
 
 A aplicação “Me tira uma dúvida?” tem como finalidade auxiliar de maneira rápida os usuários que possuem questões a serem respondidas, sendo utilizado como ferramenta para o compartilhamento de informações.
 
-[App]()
+[App](https://social-network-squad3.firebaseapp.com)
 
 * [1. Prefácio](#1-prefácio)
 * [2. Autoria](#2-autoria)
@@ -31,7 +31,10 @@ Projeto desenvolvido por: **Jaqueline Wanzeler, Karine Souza e Rosangela Silva.*
 
 ## 5. Métodos Utilizados:
 
-Para a organização das tarefas aplicamos a ferramenta [Trello](https://trello.com/b/M54eMQi1).
-Foi definido como banco de dados e autenticação o [Firebase](), o que possibilitou criar, deletar e atualizar as informações.
-Utilizamos o conceito de Mobile First, pensando primeiramente na visualização da aplicação em dispositivos móveis e depois na visualização em telas maiores. Tornando assim, responsivel.
+Para a organização das tarefas aplicamos a ferramenta [Trello](https://trello.com/b/M54eMQi1);
+
+Foi definido como banco de dados e autenticação o [Firebase](https://social-network-squad3.firebaseapp.com), o que possibilitou criar, deletar e atualizar as informações;
+
+Utilizamos o conceito de Mobile First, pensando primeiramente na visualização da aplicação em dispositivos móveis e depois na visualização em telas maiores. Tornando assim, responsivel;
+
 Foi aplicado o “flexbox” para a distribuição do espaço e alinhamento dos elementos.
