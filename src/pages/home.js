@@ -97,7 +97,7 @@ function printPosts(post) {
     postTemplate += '</div> <hr>';
   }
 
-  if (post.data().comments !== undefined && post.data().comments !== "") {
+  if (post.data().comments !== undefined) {
     postTemplate += `
       <div class='comments-box' id='comment-div-${post.id}'>
         ${post.data().comments.map(item => `<p><span class="user-name-comment">${item.userName}: </span> <span>${item.comment}</span></p>`).join('')}
@@ -136,12 +136,14 @@ function btnPrintComment(event) {
   const comment = document.querySelector('#input-comment-' + postid).value;
   db.collection('posts').doc().get().then(() => {
       const docPost = db.collection('posts').doc(postid);
+      if (comment !== '') {
       docPost.update({
         comments: firebase.firestore.FieldValue.arrayUnion({
           userName,
           comment,
         })
-      });
+      })
+    }
     })
     .then(() => {
       app.loadPosts();
