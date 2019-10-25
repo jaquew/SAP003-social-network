@@ -19,18 +19,21 @@ function Home() {
         ${Button({ id: 'btn-exit', class: 'btn-exit', title: 'SAIR', onClick: btnSignOut })}
       </ul>
     </nav>
-    <h3 id="greetings"></h3>
-    <section class="new-post">
-      <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua dúvida?"></textarea>
-      <div class="txt-btn">
-        <select class="privacy" id="privacy">
-          <option value="public">Público 🔓</option>
-          <option value="private">Somente para mim 🔐</option>
-        </select>
-        ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
+    <section class="home-container">
+      <div id="greetings">
       </div>
+      <section class="new-post">
+        <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua dúvida?"></textarea>
+        <div class="txt-btn">
+          <select class="privacy" id="privacy">
+            <option value="public">Público 🔓</option>
+            <option value="private">Somente para mim 🔐</option>
+          </select>
+          ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
+        </div>
+        <ul class="posts"></ul>
+      </section>
     </section>
-    <ul class="posts"></ul>
   `;
   return template;
 }
@@ -61,7 +64,7 @@ function printPosts(post) {
   const postList = document.querySelector('.posts');
   const atual = firebase.auth().currentUser;
   const autor = post.data().user_id;
-  const avatar = "https://api.adorable.io/avatars/70/" + autor;
+  const avatar = "https://api.adorable.io/avatars/70/";
   let privacytype = post.data().privacy;
   if (privacytype === 'public') {
     privacytype = '<span class="tooltip"><img class="icon-earth" src="./images/earth.svg"><span class="tooltip-text">Público</span></img></span>';
@@ -69,9 +72,17 @@ function printPosts(post) {
     privacytype = '<span class="tooltip"><img class="icon-padlock" src="./images/padlock.svg"><span class="tooltip-text">Privado</span></img></span>';
   }
 
+  let profileTemplate =`
+  <img class="avatar" src=${avatar + atual.uid}></img>
+  <div>
+    <h3 class="user-name">${atual.displayName}<h3>
+    <p></p>
+  </div>
+    `;
+
   let postTemplate = `
     <li>
-      <img class="avatar" src=${avatar}></img>
+      <img class="avatar" src=${avatar + autor}></img>
       <div id="post-area">
         <p class="user-name">${post.data().user_name}</p>     
         <p class="time-area">${post.data().timestamp.toDate().toLocaleString('pt-BR')} ${privacytype}
@@ -111,7 +122,7 @@ function printPosts(post) {
     </div>
   `;
   postList.innerHTML += postTemplate;
-  document.getElementById('greetings').innerHTML = `Olá, ${atual.displayName}`;
+  document.getElementById('greetings').innerHTML = profileTemplate;
 }
 
 function loadPosts() {

@@ -91,6 +91,7 @@ img.img-btn-google {
   flex-direction: column;
   align-items: center;
   margin: 10px 0;
+  width: 80%;
 }
 
 #post-area {
@@ -107,6 +108,19 @@ img.img-btn-google {
   font-size: 15px;
   margin: 20px -5px;
   padding: 10px;
+}
+
+.home-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+#greetings{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 10px;
 }
 
 .user-name {
@@ -142,6 +156,8 @@ img.img-btn-google {
   flex-direction: column-reverse;
   padding: 0 10px;
   margin: 10px;
+  width: 100%;
+  
 }
 
 .time-area {
@@ -313,6 +329,13 @@ img.img-btn-google {
     width: 40%;
   }
 
+  .home-container{
+    flex-direction: row;
+    width: 80%;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 auto;
+  }
   #image {
     width: 60%;
   }
@@ -371,7 +394,7 @@ img.img-btn-google {
   .avatar {
     width: 70px;
   }
-
+ 
   .posts li {
     justify-content: space-evenly;
   }
