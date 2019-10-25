@@ -34,6 +34,7 @@ function googleLogin() {
             uid: user.uid,
             dn: '',
             sobrenome: '',
+            aboutme: '',
           });
         }
       });

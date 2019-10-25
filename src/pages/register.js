@@ -3,26 +3,32 @@ import Input from '../components/input.js';
 
 function btnRegister() {
   const email = document.querySelector('.js-email-register').value;
-  const password = document.querySelector('.js-password-register').value;
+  const password = document.querySelector('.js-password-confirm').value;
   const name = document.querySelector('.js-name-register').value;
   const lastname = document.querySelector('.js-lastname-register').value;
   const birthday = document.querySelector('.js-birthday-register').value;
-  firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-    const user = firebase.auth().currentUser;
-    if (user != null) {
-      window.location = '#home';
-      db.collection('users').doc(email).set({
-        name: name,
-        sobrenome: lastname,
-        dn: birthday,
-        email: email,
-        uid: user.uid,
+  if (email && name && lastname && birthday && password) {
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+      const user = firebase.auth().currentUser;
+      if (user != null) {
+        window.location = '#home';
+        db.collection('users').doc(email).set({
+          name: name,
+          sobrenome: lastname,
+          dn: birthday,
+          email: email,
+          uid: user.uid,
+          aboutme: '',
+        });
+      }
+      user.updateProfile({
+        displayName: name,
       });
-    }
-    user.updateProfile({
-      displayName: name,
     });
-  });
+  } else{
+    alert('Por favor, preencha todos os campos!')
+  }
+
 }
 
 
@@ -39,10 +45,10 @@ function Register() {
       ${Input({ type: 'text', class: 'js-lastname-register', id: 'lastname-register', placeholder: 'Digite seu sobrenome' })}
       ${Input({ type: 'date', class: 'js-birthday-register', id: 'birthday-register', placeholder: 'Digite sua data' })}
       ${Input({ type: 'email', class: 'js-email-register', id: 'email-register', placeholder: 'Digite seu e-mail' })}
-      ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', onBlur: confirmEmailPass, placeholder: 'Digite seu e-mail novamente' })}
-      ${Input({ type: 'password', class: 'js-password-register', id: 'password-register', placeholder: 'Digite a senha', onBlur: passValidation })}
+      ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', ev: 'onkeyup', evFunction: confirmEmailPass, placeholder: 'Digite seu e-mail novamente' })}
+      ${Input({ type: 'password', class: 'js-password-register', id: 'password-register', placeholder: 'Digite a senha', ev: 'onkeyup', evFunction: passValidation })}
       <p id='pw-warn'></p>
-      ${Input({ type: 'password', class: 'js-password-confirm', id: 'password-confirm', onBlur: confirmEmailPass, placeholder: 'Digite a senha novamente'})}
+      ${Input({ type: 'password', class: 'js-password-confirm', id: 'password-confirm', ev: 'onkeyup', evFunction: confirmEmailPass, placeholder: 'Digite a senha novamente'})}
       <p id='aviso'></p>
       </form>
       <form class="btnregister">
@@ -58,7 +64,7 @@ function Register() {
   return template;
 }
 
-function confirmEmailPass() {
+function confirmEmailPass() {  
   const email = document.querySelector('.js-email-register').value;
   const emailConfirm = document.querySelector('.js-email-confirm').value;
   const password = document.querySelector('.js-password-register').value;
@@ -79,7 +85,7 @@ function confirmEmailPass() {
   }
 }
 
-function passValidation() {
+function passValidation() {  
   const password = document.querySelector('.js-password-register').value;
   const buttonRegister = document.querySelector('#btnRegister');
   const re = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!$%@#£€*?&]{8,}$/);

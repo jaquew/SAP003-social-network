@@ -10,8 +10,7 @@ input {
   padding: 8px;
 }
 
-.login-layout,
-.register-layout {
+.login-layout, .register-layout, .profile-layout {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -36,12 +35,17 @@ input {
   background: #4458be;
 }
 
-.register-box :nth-child(n) {
+.register-box :nth-child(n), .profile-box :nth-child(n) {
   margin: 10px;
 }
 
-.login-box,
-.register-box {
+#pw-warn, #aviso{
+  color: red;
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.login-box, .register-box, .profile-box {
   display: flex;
   flex-direction: column;
   padding: 20px;

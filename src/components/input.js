@@ -1,4 +1,4 @@
-function Input(props) {
+function Input(props) {  
   const template = `
       <input
       class='${props.class}'
@@ -6,11 +6,12 @@ function Input(props) {
       placeholder='${props.placeholder}'
       type='${props.type}' 
       id='${props.id}'
-      onblur="input.handleClick(event, ${props.onBlur})"/>
-    `;
-  return template;
-}
-
+      ${props.ev} = "input.handleClick(event, ${props.evFunction})"/>
+      `;
+      return template;
+    }
+    
+    //onblur="input.handleClick(event, ${props.onBlur})"/>
 window.input = {
   handleClick: (event, callback) => {
     event.preventDefault();

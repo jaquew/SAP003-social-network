@@ -1,9 +1,11 @@
 import Login from './pages/login.js';
 import Register from './pages/register.js';
 import Home from './pages/home.js';
+import Profile from './pages/profile.js';
+
 
 function locationHashChanged() {
-  firebase.auth().onAuthStateChanged(function (user) {
+  firebase.auth().onAuthStateChanged((user) => {
     switch (location.hash) {
       case '#register':
         user ? window.location = '#home' : document.querySelector('main').innerHTML = Register();
@@ -14,9 +16,9 @@ function locationHashChanged() {
       case '#login':
         user ? window.location = '#home' : document.querySelector('main').innerHTML = Login()
         break;
-        //case '#profile':
-        //  user ? document.querySelector('main').innerHTML = Profile() : window.location = '#login'
-        //  break;
+        case '#profile':
+         user ? document.querySelector('main').innerHTML = Profile() : window.location = '#login'
+         break;
       default:
         window.location = '#login'
     }
