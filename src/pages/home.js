@@ -46,7 +46,7 @@ function btnPrint() {
       likes: 0,
       user_id: user.uid,
       user_name: user.displayName,
-      coments: [],
+      comments: [],
       privacy: filterPrivacy,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     };
