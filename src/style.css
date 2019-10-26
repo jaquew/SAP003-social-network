@@ -10,7 +10,9 @@ input {
   padding: 8px;
 }
 
-.login-layout, .register-layout, .profile-layout {
+.login-layout,
+.register-layout,
+.profile-layout {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -35,17 +37,21 @@ input {
   background: #4458be;
 }
 
-.register-box :nth-child(n), .profile-box :nth-child(n) {
+.register-box :nth-child(n),
+.profile-box :nth-child(n) {
   margin: 10px;
 }
 
-#pw-warn, #aviso{
+#pw-warn,
+#aviso {
   color: red;
   font-size: 0.8em;
   margin: 0;
 }
 
-.login-box, .register-box, .profile-box {
+.login-box,
+.register-box,
+.profile-box {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -110,13 +116,14 @@ img.img-btn-google {
   padding: 10px;
 }
 
-.home-container{
+.home-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
 }
-#greetings{
+
+#greetings {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -157,7 +164,7 @@ img.img-btn-google {
   padding: 0 10px;
   margin: 10px;
   width: 100%;
-  
+
 }
 
 .time-area {
@@ -329,13 +336,14 @@ img.img-btn-google {
     width: 40%;
   }
 
-  .home-container{
+  .home-container {
     flex-direction: row;
     width: 80%;
     justify-content: center;
     align-items: flex-start;
     margin: 0 auto;
   }
+
   #image {
     width: 60%;
   }
@@ -394,7 +402,7 @@ img.img-btn-google {
   .avatar {
     width: 70px;
   }
- 
+
   .posts li {
     justify-content: space-evenly;
   }
