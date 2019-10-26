@@ -9,8 +9,9 @@ function btnSignOut() {
   });
 }
 
-function Home() {
+function Home(props) {
   app.loadPosts();
+  
   const template = `
     <nav class="menu">
       <ul>
@@ -21,6 +22,11 @@ function Home() {
     </nav>
     <section class="home-container">
       <div id="greetings">
+        <img class="avatar" src="https://api.adorable.io/avatars/70/" + ${props.uid}></img>
+        <div  class="bio">
+          <h2 class="user-name">${props.name}</h2>
+          <p>${props.aboutme}</p>
+        </div>
       </div>
       <section class="new-post">
         <textarea class="txt-area" rows="5" cols="40" required placeholder="Qual é a sua dúvida?"></textarea>
@@ -72,14 +78,6 @@ function printPosts(post) {
     privacytype = '<span class="tooltip"><img class="icon-padlock" src="./images/padlock.svg"><span class="tooltip-text">Privado</span></img></span>';
   }
 
-  let profileTemplate =`
-  <img class="avatar" src=${avatar + atual.uid}></img>
-  <div>
-    <h3 class="user-name">${atual.displayName}<h3>
-    <p></p>
-  </div>
-    `;
-
   let postTemplate = `
     <li>
       <img class="avatar" src=${avatar + autor}></img>
@@ -116,13 +114,13 @@ function printPosts(post) {
     `;
   }
   postTemplate += `
-    ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário' })}
+    ${Input({ type: 'text', id: 'input-comment-'+post.id, dataId: post.id, class: 'input-comment hidden', placeholder: 'Escreva um comentário', value: '' })}
     ${Button({ id:'btn-comment-'+post.id, dataId: post.id, class: 'primary-button hidden', title: 'Enviar', onClick: btnPrintComment })}
     </li>
     </div>
   `;
   postList.innerHTML += postTemplate;
-  document.getElementById('greetings').innerHTML = profileTemplate;
+  // document.getElementById('greetings').innerHTML = profileTemplate;
 }
 
 function loadPosts() {
