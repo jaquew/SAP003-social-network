@@ -84,6 +84,15 @@ img.img-btn-google {
 
 #greetings {
   text-align: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15px;
+  width: 90%;
+}
+.bio p{
+  font-size: 0.6em;
+  padding: 10px;
 }
 
 .new-post {
@@ -91,7 +100,7 @@ img.img-btn-google {
   flex-direction: column;
   align-items: center;
   margin: 10px 0;
-  width: 80%;
+  width: 90%;
 }
 
 #post-area {
@@ -116,16 +125,11 @@ img.img-btn-google {
   width: 100%;
   align-items: center;
 }
-#greetings{
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 20px 10px;
-}
 
 .user-name {
   font-weight: bold;
   margin: 0px;
+  font-size: 0.8em;
 }
 
 .user-name-comment {
@@ -133,7 +137,8 @@ img.img-btn-google {
 }
 
 .txt-area {
-  margin: 20px;
+  margin: 0 20px;
+  margin-bottom: 10px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -144,7 +149,8 @@ img.img-btn-google {
 .txt-btn {
   display: flex;
   justify-content: space-between;
-  width: 65%;
+  width: 80%;
+  padding: 10px;
 }
 
 .my-file {
@@ -331,7 +337,7 @@ img.img-btn-google {
 
   .home-container{
     flex-direction: row;
-    width: 80%;
+    max-width: 80%;
     justify-content: center;
     align-items: flex-start;
     margin: 0 auto;
@@ -386,7 +392,18 @@ img.img-btn-google {
   .txt-area {
     width: 60%;
   }
-
+  .new-post{
+    min-width: 70%
+  }
+  #greetings{
+    padding: 10px;
+  }
+  .bio p{
+    font-size: 0.9em;
+  }
+  .user-name {
+    font-size: 1em;
+  }
   #post-area {
     width: 60%;
   }

@@ -6,13 +6,13 @@ function Input(props) {
       placeholder='${props.placeholder}'
       type='${props.type}' 
       id='${props.id}'
+      value='${props.value}'
       ${props.ev} = "input.handleClick(event, ${props.evFunction})"/>
       `;
       return template;
     }
-    
-    //onblur="input.handleClick(event, ${props.onBlur})"/>
-window.input = {
+
+    window.input = {
   handleClick: (event, callback) => {
     event.preventDefault();
     if (callback !== undefined) {

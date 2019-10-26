@@ -54,9 +54,9 @@ function Login() {
       <div class="container">
         <h2>Olá, bem-vindo</h2>
         <form class="login-box">
-          ${Input({ class: 'input-email', placeholder: 'email', type: 'email' })}
+          ${Input({ class: 'input-email', placeholder: 'email', type: 'email', value: '' })}
 
-          ${Input({ class: 'input-password', placeholder: 'password', type: 'password' })}
+          ${Input({ class: 'input-password', placeholder: 'password', type: 'password', value: '' })}
 
           ${Button({ id: 'entrar', title: 'Entrar', class: 'primary-button', onClick: buttonLogin })}
           ${Button({ id: 'google', title: 'Entrar com sua conta do Google', class: 'btn-google', onClick: googleLogin })}

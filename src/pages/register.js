@@ -41,14 +41,14 @@ function Register() {
     <section class="register-layout">
       <h1>Registre-se!</h1>
       <form class="register-box">
-      ${Input({ type: 'text', class: 'js-name-register', id: 'name-register', placeholder: 'Digite seu nome' })}
-      ${Input({ type: 'text', class: 'js-lastname-register', id: 'lastname-register', placeholder: 'Digite seu sobrenome' })}
-      ${Input({ type: 'date', class: 'js-birthday-register', id: 'birthday-register', placeholder: 'Digite sua data' })}
-      ${Input({ type: 'email', class: 'js-email-register', id: 'email-register', placeholder: 'Digite seu e-mail' })}
-      ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', ev: 'onkeyup', evFunction: confirmEmailPass, placeholder: 'Digite seu e-mail novamente' })}
-      ${Input({ type: 'password', class: 'js-password-register', id: 'password-register', placeholder: 'Digite a senha', ev: 'onkeyup', evFunction: passValidation })}
+      ${Input({ type: 'text', class: 'js-name-register', id: 'name-register', placeholder: 'Digite seu nome', value: '' })}
+      ${Input({ type: 'text', class: 'js-lastname-register', id: 'lastname-register', placeholder: 'Digite seu sobrenome', value: '' })}
+      ${Input({ type: 'date', class: 'js-birthday-register', id: 'birthday-register', placeholder: 'Digite sua data', value: '' })}
+      ${Input({ type: 'email', class: 'js-email-register', id: 'email-register', placeholder: 'Digite seu e-mail', value: '' })}
+      ${Input({ type: 'email', class: 'js-email-confirm', id: 'email-confirm', ev: 'onkeyup', evFunction: confirmEmailPass, placeholder: 'Digite seu e-mail novamente', value: '' })}
+      ${Input({ type: 'password', class: 'js-password-register', id: 'password-register', placeholder: 'Digite a senha', ev: 'onkeyup', evFunction: passValidation, value: '' })}
       <p id='pw-warn'></p>
-      ${Input({ type: 'password', class: 'js-password-confirm', id: 'password-confirm', ev: 'onkeyup', evFunction: confirmEmailPass, placeholder: 'Digite a senha novamente'})}
+      ${Input({ type: 'password', class: 'js-password-confirm', id: 'password-confirm', ev: 'onkeyup', evFunction: confirmEmailPass, placeholder: 'Digite a senha novamente', value: ''})}
       <p id='aviso'></p>
       </form>
       <form class="btnregister">
