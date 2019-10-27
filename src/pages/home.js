@@ -41,6 +41,8 @@ function Home(props) {
       </section>
     </section>
   `;
+  console.log('terminou template');
+  
   return template;
 }
 

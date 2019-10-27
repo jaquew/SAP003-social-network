@@ -174,7 +174,27 @@ img.img-btn-google {
 }
 
 .menu ul {
-  display: none;
+  background-color: #5108B0;
+  list-style: none;
+  /*width: 100%;*/
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+}
+.menu ul li {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1.3em;
+}
+
+.menu a {
+  text-decoration: none;
+}
+.menu ul li a {
+  display: inline-block;
+  background-color: #5108B0;
+  color: #EDEDED;
 }
 
 .posts li {
@@ -344,15 +364,6 @@ img.img-btn-google {
   }
   #image {
     width: 60%;
-  }
-
-  .menu ul {
-    background-color: #5108B0;
-    list-style: none;
-    /*width: 100%;*/
-    display: flex;
-    justify-content: space-around;
-    margin: 0;
   }
 
   .menu ul li {
