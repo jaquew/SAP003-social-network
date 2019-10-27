@@ -22,7 +22,7 @@ function Home(props) {
     </nav>
     <section class="home-container">
       <div id="greetings">
-        <img class="avatar" src="https://api.adorable.io/avatars/70/" + ${props.uid}></img>
+        <img class="avatar" src="https://api.adorable.io/avatars/70/${props.uid}"></img>
         <div  class="bio">
           <h2 class="user-name">${props.name}</h2>
           <p>${props.aboutme}</p>

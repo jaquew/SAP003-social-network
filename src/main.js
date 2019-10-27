@@ -5,7 +5,9 @@ import Profile from './pages/profile.js';
 
 
 function locationHashChanged() {
-  firebase.auth().onAuthStateChanged((user) => {    
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log(user);
+    
     switch (location.hash) {
       case '#register':
         user ? window.location = '#home' : document.querySelector('main').innerHTML = Register();
