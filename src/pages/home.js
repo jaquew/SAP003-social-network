@@ -144,9 +144,13 @@ function loadPosts() {
 
 function btnDeleteComment(event) {
   const confirmDelete = confirm('deseja mesmo deletar?')
+  // esse é o Id do comentário
+  const commentId = event.target.dataset.com;
+  console.log(commentId)
 
   if (confirmDelete) {
     const postId = event.target.dataset.id;
+    console.log(postId)
     const postColletion = firebase.firestore().collection('posts')
     postColletion.doc(postId).get()
       .then(() => {
@@ -159,7 +163,6 @@ function btnDeleteComment(event) {
         app.loadPosts();
       });
   }
-
 }
 
 function btnPrintComment(event) {
