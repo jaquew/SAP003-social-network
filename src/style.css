@@ -22,7 +22,8 @@ input {
   background-color: #F0E9E5;
 }
 
-.primary-button {
+.primary-button,
+.privacy {
   background-color: #5108B0;
   /*F76900*/
   padding: 10px;
@@ -337,6 +338,19 @@ img.img-btn-google {
   border: 1px solid #aaa;
   background: white;
   padding: 5px;
+}
+
+.privacy {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align-last: center;
+  text-align: center;
+}
+
+.privacy:hover{
+  background: #4458be;
+  display: block;
 }
 
 @media (min-width: 540px) {
