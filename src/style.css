@@ -29,7 +29,6 @@ input {
 .primary-button,
 .privacy {
   background-color: #5108B0;
-  /*F76900*/
   padding: 10px;
   font-size: 0.9rem;
   border-radius: 5px;
@@ -422,9 +421,6 @@ button {
 }
 
 .privacy {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   text-align-last: center;
   text-align: center;
 }
