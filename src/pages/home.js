@@ -112,7 +112,7 @@ function printPosts(post) {
         ${post.data().comments.map(item => `
         <p><span class="user-name-comment">${item.userName}: </span>
         <span>${item.comment}</span>
-        ${Button({ dataId: post.id, idCom: item.id, class: 'btn-delete-post', title: '', onClick: btnDeleteComment})}
+        ${Button({ dataId: post.id, idCom: item.id, class: 'btn-delete-post', title: 'deleta', onClick: btnDeleteComment})}
         </p>`).join('')}
       </div>
     `;
@@ -144,22 +144,22 @@ function loadPosts() {
 
 function btnDeleteComment(event) {
   const confirmDelete = confirm('deseja mesmo deletar?')
-  // esse é o Id do comentário
-  const commentId = event.target.dataset.com;
-  console.log(commentId)
+  const postColletion = firebase.firestore().collection('posts')
 
   if (confirmDelete) {
+    const commentId = event.target.dataset.com;
     const postId = event.target.dataset.id;
-    console.log(postId)
-    const postColletion = firebase.firestore().collection('posts')
     postColletion.doc(postId).get()
-      .then(() => {
-        var postRef = postColletion.doc(postId);
-        postRef.update({
-          comments: firebase.firestore.FieldValue.delete()
-        });
+      .then((item) => {
+        const commentsPost = item.data().comments
+        const filterComment = commentsPost.filter(comment => comment.id != commentId)
+
+        postColletion.doc(postId).update({
+          comments: firebase.firestore.FieldValue.delete(),
+          comments: filterComment,
+        })
       }).then(() => {
-        console.log('Document successfully deleted!');
+        console.log('Deleta Senhor!');
         app.loadPosts();
       });
   }
