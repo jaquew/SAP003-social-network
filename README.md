@@ -41,6 +41,7 @@ Projeto desenvolvido por: **Jaqueline Wanzeler, Karine Verneque e Rosangela Silv
 
 ![Página de Login](/src/images/Page-Login.jpeg)
 ![Página de Registro](/src/images/Page-Register.jpeg)
+![HomePage](/src/images/Page-Home.png)
 
 
 ## 5. Métodos Utilizados:

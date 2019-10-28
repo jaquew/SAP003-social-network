@@ -7,7 +7,7 @@ function btnUpdate() {
   const birthday = document.querySelector('.js-birthday-profile').value;
   const text = document.querySelector('.js-description-profile').value;
   const user = firebase.auth().currentUser;
-  if (text && name && lastname && birthday){
+  if (text || name || lastname || birthday) {
     db.collection('users').doc(user.email).update({
       name: name,
       sobrenome: lastname,
