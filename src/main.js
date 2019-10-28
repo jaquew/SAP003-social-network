@@ -5,26 +5,17 @@ import Profile from './pages/profile.js';
 
 
 function locationHashChanged() {
-  console.log('loactionhash');
-  
+
   firebase.auth().onAuthStateChanged((user) => {
-    console.log('onauth');
-        
+
     switch (location.hash) {
       case '#register':
         user ? window.location = '#home' : document.querySelector('main').innerHTML = Register();
         break;
       case '#home':
-        console.log('case home');
-        
         if (user) {
-          console.log('if');
-          
           db.collection('users').doc(user.email).get().then((snap) => {
-
             const data = snap.data()
-
-            console.log(data);
             document.querySelector('main').innerHTML = Home(data);
           })
         } else {
@@ -38,8 +29,6 @@ function locationHashChanged() {
          if (user) {
           db.collection('users').doc(user.email).get().then((snap) => {
             const data = snap.data()
-           
-            
             document.querySelector('main').innerHTML = Profile(data);
           })
          } else {

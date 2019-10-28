@@ -11,7 +11,7 @@ function btnSignOut() {
 
 function Home(props) {
   app.loadPosts();
-  
+
   const template = `
     <nav class="menu">
       <ul>
@@ -41,8 +41,7 @@ function Home(props) {
       </section>
     </section>
   `;
-  console.log('terminou template');
-  
+
   return template;
 }
 
@@ -84,15 +83,15 @@ function printPosts(post) {
     <li>
       <img class="avatar" src=${avatar + autor}></img>
       <div id="post-area">
-        <p class="user-name">${post.data().user_name}</p>     
+        <p class="user-name">${post.data().user_name}</p>
         <p class="time-area">${post.data().timestamp.toDate().toLocaleString('pt-BR')} ${privacytype}
         <p id="${post.id}">${post.data().text}</p>
-        <hr>        
         <div class="btn-icons">
           <div class="commom-btn">
-            ${Button({dataId: post.id, class: 'btn-like', title: '', onClick: like})}${post.data().likes}
+            ${Button({dataId: post.id, class: 'btn-like', title: '', onClick: like})}
+            ${post.data().likes}
             ${Button({ dataId: post.id, class: 'btn-comment', title: '', onClick: comment})}
-          </div>    
+          </div>
   `;
   if (atual.uid === autor) {
     postTemplate += `
