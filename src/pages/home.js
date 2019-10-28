@@ -67,7 +67,7 @@ function btnPrint() {
   }
 }
 
-function printPosts(post) {
+function printPosts(post) {  
   const postList = document.querySelector('.posts');
   const atual = firebase.auth().currentUser;
   const autor = post.data().user_id;
@@ -107,18 +107,23 @@ function printPosts(post) {
     postTemplate += '</div> <hr>';
   }
 
-  if (post.data().comments !== undefined) {
+  if (post.data().comments.length !== 0) {
     postTemplate += `
       <div class='comments-box' id='comment-div-${post.id}'>
-        ${post.data().comments.map(item => `
-        <p>
+        ${post.data().comments.map((item) => {
+          if (item.userId === atual.uid && item.userId === autor ) {
+        return `<p>
+          <span class="user-name-comment">${item.userName}:</span>
+          <span>${item.comment}</span>
+            <span class='box-delete-comment'>
+            ${Button({ dataId: post.id, idCom: item.id, class: 'btn-delete-comment', title: '', onClick: btnDeleteComment})}
+            </span>`;
+        } else {
+          return `<p>
           <span class="user-name-comment">${item.userName}: </span>
           <span>${item.comment}</span>
-          <span class='box-delete-comment'>
-            ${Button({ dataId: post.id, idCom: item.id, class: 'btn-delete-comment', title: '', onClick: btnDeleteComment})}
-        </span>
-        <hr class="hr">
-        </p>`).join('')}
+          <hr class="hr">
+        </p>`}}).join('')}
       </div>
     `;
   }
@@ -129,7 +134,6 @@ function printPosts(post) {
     </div>
   `;
   postList.innerHTML += postTemplate;
-  // document.getElementById('greetings').innerHTML = profileTemplate;
 }
 
 function loadPosts() {
@@ -171,6 +175,7 @@ function btnDeleteComment(event) {
 
 function btnPrintComment(event) {
   const userName = firebase.auth().currentUser.displayName;
+  const userId = firebase.auth().currentUser.uid
   const postid = event.target.dataset.id;
   const comment = document.querySelector('#input-comment-' + postid).value;
   db.collection('posts').doc().get().then(() => {
@@ -180,6 +185,7 @@ function btnPrintComment(event) {
           comments: firebase.firestore.FieldValue.arrayUnion({
             userName,
             comment,
+            userId,
             id: new Date().getTime(),
           })
         })
@@ -193,6 +199,7 @@ function btnPrintComment(event) {
 function comment() {
   const postid = event.target.dataset.id;
   document.getElementById('input-comment-' + postid).classList.remove('hidden');
+  document.getElementById('input-comment-' + postid).focus();
   document.getElementById('btn-comment-' + postid).classList.remove('hidden');
 }
 
