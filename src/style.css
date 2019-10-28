@@ -96,11 +96,16 @@ img.img-btn-google {
   justify-content: center;
   padding-top: 15px;
   width: 90%;
-}
+  font-size: 0.8em;
 
-.bio p {
-  font-size: 0.6em;
+}
+.bio{
+    padding: 5px;
+}
+.bio p{
   padding: 10px;
+  margin: 0;
+
 }
 
 .new-post {
@@ -114,9 +119,14 @@ img.img-btn-google {
 #post-area {
   width: 80%;
 }
+#post-area p{
+  margin: 5px 0;
+}
 
 .avatar {
   width: 40px;
+  border: none;
+  border-radius: 5px;
 }
 
 .comments-box {
@@ -144,7 +154,6 @@ img.img-btn-google {
 .user-name {
   font-weight: bold;
   margin: 0px;
-  font-size: 0.8em;
 }
 
 .user-name-comment {
@@ -189,7 +198,31 @@ img.img-btn-google {
 }
 
 .menu ul {
-  display: none;
+  background-color: #5108B0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+  height: 45px;
+}
+.menu ul li {
+  display: inline-block;
+  padding: 10px;
+  margin: auto 10px;
+}
+
+.menu a {
+  text-decoration: none;
+}
+.menu ul li a {
+  display: inline-block;
+  background-color: #5108B0;
+  color: #EDEDED;
+}
+.commom-btn{
+    display: flex;
+    align-items: center;
 }
 
 .posts li {
@@ -255,13 +288,24 @@ img.img-btn-google {
   border-radius: 5px;
   cursor: pointer;
   margin: 5px;
-  padding: 20px;
+  padding: 17px;
 }
+
+.btn-exit {
+border: none;
+background: #5108B0;
+color: #EDEDED;
+}
+
+.btn-exit:hover {
+border-bottom: 1px solid #EDEDED;
+}
+
 
 .btn-like {
   background: rgb(199, 165, 255);
   background-image: url(./images/like.svg);
-  background-size: 20px;
+  background-size: 18px;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -273,7 +317,7 @@ img.img-btn-google {
 .btn-comment {
   background: rgb(123, 207, 255);
   background-image: url(./images/conversation.svg);
-  background-size: 20px;
+  background-size: 18px;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -285,7 +329,7 @@ img.img-btn-google {
 .btn-save {
   background: rgb(176, 255, 123);
   background-image: url(./images/save.svg);
-  background-size: 20px;
+  background-size: 18px;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -297,29 +341,29 @@ img.img-btn-google {
 .btn-edit {
   background: rgb(255, 235, 123);
   background-image: url(./images/edit.svg);
-  background-size: 20px;
+  background-size: 18px;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .btn-edit:hover {
-  background: #FBF5EF;
-  background-image: url(./images/edit.svg);
-  background-size: 20px;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #FBF5EF;
 }
 
 .btn-delete {
   background: rgb(255, 127, 123);
   background-image: url(./images/delete.svg);
-  background-size: 20px;
+  background-size: 18px;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .btn-delete:hover {
   background-color: #FBF5EF;
+}
+.btnregister, .btnprofile{
+  display: flex;
+  justify-content: space-around;
 }
 
 .icon-earth,
@@ -369,25 +413,17 @@ img.img-btn-google {
     justify-content: center;
     align-items: flex-start;
     margin: 0 auto;
+    margin-top: 15px;
   }
 
   #image {
     width: 60%;
   }
-
-  .menu ul {
-    background-color: #5108B0;
-    list-style: none;
-    /*width: 100%;*/
-    display: flex;
-    justify-content: space-around;
-    margin: 0;
+  .menu ul{
+      height: 60px;
   }
 
   .menu ul li {
-    display: inline-block;
-    padding: 10px;
-    margin: 10px;
     font-size: 1.3em;
   }
 
@@ -395,27 +431,17 @@ img.img-btn-google {
     text-decoration: none;
   }
 
-  .btn-exit {
-    border: none;
-    background: #5108B0;
-    color: #EDEDED;
-    font-size: 1em;
-  }
-
-  .btn-exit:hover {
-    border-bottom: 1px solid #EDEDED;
-  }
-
   .menu ul li a {
     display: inline-block;
     background-color: #5108B0;
     color: #EDEDED;
   }
+  .bio p{
+    border-top: 1px solid black;
+  }
 
   .menu ul li a:hover {
     border-bottom: 1px solid #EDEDED;
-    /*color: #EDEDED;
-    border-bottom: 3px solid #EDEDED;*/
   }
 
   .txt-area {
@@ -428,18 +454,17 @@ img.img-btn-google {
 
   #greetings {
     padding: 10px;
-  }
 
-  .bio p {
-    font-size: 0.9em;
-  }
-
-  .user-name {
     font-size: 1em;
+    border: 1px solid black;
+    border-radius: 5px;
   }
 
   #post-area {
-    width: 60%;
+    width: 65%;
+  }
+  #post-area p{
+  margin: 15px 0;
   }
 
   .avatar {

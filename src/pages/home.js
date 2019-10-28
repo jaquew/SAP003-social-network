@@ -22,7 +22,7 @@ function Home(props) {
     </nav>
     <section class="home-container">
       <div id="greetings">
-        <img class="avatar" src="https://api.adorable.io/avatars/70/" + ${props.uid}></img>
+        <img class="avatar" src="https://api.adorable.io/avatars/70/${props.uid}"></img>
         <div  class="bio">
           <h2 class="user-name">${props.name}</h2>
           <p>${props.aboutme}</p>
@@ -41,6 +41,7 @@ function Home(props) {
       </section>
     </section>
   `;
+
   return template;
 }
 
@@ -82,15 +83,15 @@ function printPosts(post) {
     <li>
       <img class="avatar" src=${avatar + autor}></img>
       <div id="post-area">
-        <p class="user-name">${post.data().user_name}</p>     
+        <p class="user-name">${post.data().user_name}</p>
         <p class="time-area">${post.data().timestamp.toDate().toLocaleString('pt-BR')} ${privacytype}
         <p id="${post.id}">${post.data().text}</p>
-        <hr>        
         <div class="btn-icons">
           <div class="commom-btn">
-            ${Button({dataId: post.id, class: 'btn-like', title: '', onClick: like})}${post.data().likes}
+            ${Button({dataId: post.id, class: 'btn-like', title: '', onClick: like})}
+            ${post.data().likes}
             ${Button({ dataId: post.id, class: 'btn-comment', title: '', onClick: comment})}
-          </div>    
+          </div>
   `;
   if (atual.uid === autor) {
     postTemplate += `
