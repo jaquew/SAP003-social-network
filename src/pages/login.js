@@ -15,8 +15,6 @@ function buttonLogin() {
     }
   });
   firebase.auth().onAuthStateChanged((user) => {
-    console.log('onauth do login');
-    
     if (user) {
       window.location = '#home';
     }

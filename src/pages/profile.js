@@ -19,11 +19,9 @@ function btnUpdate() {
       });
       window.location = '#home';
       console.log('Perfil atualizado com sucesso');
-
     });
   }
 }
-
 
 function btnBack() {
   window.location = '#home';
@@ -55,16 +53,15 @@ function Profile(props) {
       </form>
       <form class="btnprofile">
       ${Button({
-    class: 'primary-button', title: 'Salvar', id: 'btnUpdate', onClick: btnUpdate,
+    class: 'primary-button', title: 'Voltar', id: 'btnBack', onClick: btnBack,
   })}
       ${Button({
-    class: 'primary-button', title: 'Voltar', id: 'btnBack', onClick: btnBack,
+    class: 'primary-button', title: 'Salvar', id: 'btnUpdate', onClick: btnUpdate,
   })}
       </form>
     </section>
   `;
   return template;
 }
-
 
 export default Profile;

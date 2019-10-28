@@ -164,7 +164,6 @@ function btnDeleteComment(event) {
         const filterComment = commentsPost.filter(comment => comment.id != commentId)
 
         postColletion.doc(postId).update({
-          comments: firebase.firestore.FieldValue.delete(),
           comments: filterComment,
         })
       }).then(() => {

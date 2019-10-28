@@ -53,11 +53,11 @@ function Register() {
       </form>
       <form class="btnregister">
       ${Button({
-    class: 'primary-button', title: 'Registrar', id: 'btnRegister', onClick: btnRegister,
-  })}
-      ${Button({
     class: 'primary-button', title: 'Voltar', id: 'btnBack', onClick: btnBack,
   })} 
+      ${Button({
+    class: 'primary-button', title: 'Registrar', id: 'btnRegister', onClick: btnRegister,
+  })}
       </form>
     </section>
   `;

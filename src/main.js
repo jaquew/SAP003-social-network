@@ -3,7 +3,6 @@ import Register from './pages/register.js';
 import Home from './pages/home.js';
 import Profile from './pages/profile.js';
 
-
 function locationHashChanged() {
   firebase.auth().onAuthStateChanged((user) => {
     switch (location.hash) {
