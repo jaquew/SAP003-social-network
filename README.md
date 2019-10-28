@@ -23,7 +23,7 @@ Há duas maneiras do usuário ingressar na Rede Social, entrando pela conta do G
 
 ## 2. Autoria:
 
-Projeto desenvolvido por: **Jaqueline Wanzeler, Karine Souza e Rosangela Silva.**
+Projeto desenvolvido por: **Jaqueline Wanzeler, Karine Verneque e Rosangela Silva.**
 
 ## 3. Perfil de Usuário:
 
