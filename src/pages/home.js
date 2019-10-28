@@ -110,7 +110,11 @@ function printPosts(post) {
   if (post.data().comments !== undefined) {
     postTemplate += `
       <div class='comments-box' id='comment-div-${post.id}'>
-        ${post.data().comments.map(item => `<p><span class="user-name-comment">${item.userName}: </span> <span>${item.comment}</span></p>`).join('')}
+        ${post.data().comments.map(item => `
+        <p><span class="user-name-comment">${item.userName}: </span>
+        <span>${item.comment}</span>
+        ${Button({ dataId: post.id, idCom: item.id, class: 'btn-delete-post', title: '', onClick: btnDeleteComment})}
+        </p>`).join('')}
       </div>
     `;
   }
@@ -126,7 +130,6 @@ function printPosts(post) {
 
 function loadPosts() {
   const user = firebase.auth().currentUser;
-
   postColletion
     .orderBy('timestamp')
     .get()
@@ -140,20 +143,45 @@ function loadPosts() {
     });
 }
 
+function btnDeleteComment(event) {
+  const confirmDelete = confirm('deseja mesmo deletar?')
+  // esse é o Id do comentário
+  const commentId = event.target.dataset.com;
+  console.log(commentId)
+
+  if (confirmDelete) {
+    const postId = event.target.dataset.id;
+    console.log(postId)
+    const postColletion = firebase.firestore().collection('posts')
+    postColletion.doc(postId).get()
+      .then(() => {
+        var postRef = postColletion.doc(postId);
+        postRef.update({
+          comments: firebase.firestore.FieldValue.delete()
+        });
+      }).then(() => {
+        console.log('Document successfully deleted!');
+        app.loadPosts();
+      });
+  }
+}
+
 function btnPrintComment(event) {
   const userName = firebase.auth().currentUser.displayName;
   const postid = event.target.dataset.id;
   const comment = document.querySelector('#input-comment-' + postid).value;
   db.collection('posts').doc().get().then(() => {
       const docPost = db.collection('posts').doc(postid);
+      console.log('pega ai', docPost)
       if (comment !== '') {
-      docPost.update({
-        comments: firebase.firestore.FieldValue.arrayUnion({
-          userName,
-          comment,
+        docPost.update({
+          comments: firebase.firestore.FieldValue.arrayUnion({
+            userName,
+            comment,
+            id: new Date().getTime(),
+          })
         })
-      })
-    }
+      }
     })
     .then(() => {
       app.loadPosts();
