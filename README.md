@@ -7,7 +7,7 @@ A aplicação “Me tira uma dúvida?” tem como finalidade auxiliar de maneira
 * [1. Prefácio](#1-prefácio)
 * [2. Autoria](#2-autoria)
 * [3. Perfil dos usuário](#3-perfil-dos-usuários)
-* [4. Layout](#4-layout)
+* [4. Design](#4-Design)
 * [5. Métodos Utilizados](#5-métodos-utilizados)
 
 ## 1. Prefácio:
@@ -27,7 +27,21 @@ Projeto desenvolvido por: **Jaqueline Wanzeler, Karine Souza e Rosangela Silva.*
 
 ## 3. Perfil de Usuário:
 
-## 4. Layout:
+- **Personas**
+
+![Personas](/src/images/Personas.jpeg)
+
+## 4. Design:
+
+- **Protótipo**
+
+![Protótipo1](/src/images/Prototipo2.jpeg)
+
+- **Produto Pronto**
+
+![Página de Login](/src/images/Page-Login.jpeg)
+![Página de Registro](/src/images/Page-Register.jpeg)
+
 
 ## 5. Métodos Utilizados:
 
