@@ -10,6 +10,10 @@ input {
   padding: 8px;
 }
 
+.hr {
+  width: 90%;
+}
+
 .login-layout,
 .register-layout,
 .profile-layout {
@@ -99,10 +103,12 @@ img.img-btn-google {
   font-size: 0.8em;
 
 }
-.bio{
-    padding: 5px;
+
+.bio {
+  padding: 5px;
 }
-.bio p{
+
+.bio p {
   padding: 10px;
   margin: 0;
 
@@ -119,7 +125,8 @@ img.img-btn-google {
 #post-area {
   width: 80%;
 }
-#post-area p{
+
+#post-area p {
   margin: 5px 0;
 }
 
@@ -206,6 +213,7 @@ img.img-btn-google {
   padding: 0;
   height: 45px;
 }
+
 .menu ul li {
   display: inline-block;
   padding: 10px;
@@ -215,14 +223,16 @@ img.img-btn-google {
 .menu a {
   text-decoration: none;
 }
+
 .menu ul li a {
   display: inline-block;
   background-color: #5108B0;
   color: #EDEDED;
 }
-.commom-btn{
-    display: flex;
-    align-items: center;
+
+.commom-btn {
+  display: flex;
+  align-items: center;
 }
 
 .posts li {
@@ -292,13 +302,13 @@ img.img-btn-google {
 }
 
 .btn-exit {
-border: none;
-background: #5108B0;
-color: #EDEDED;
+  border: none;
+  background: #5108B0;
+  color: #EDEDED;
 }
 
 .btn-exit:hover {
-border-bottom: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
 }
 
 
@@ -361,7 +371,9 @@ border-bottom: 1px solid #EDEDED;
 .btn-delete:hover {
   background-color: #FBF5EF;
 }
-.btnregister, .btnprofile{
+
+.btnregister,
+.btnprofile {
   display: flex;
   justify-content: space-around;
 }
@@ -369,6 +381,31 @@ border-bottom: 1px solid #EDEDED;
 .icon-earth,
 .icon-padlock {
   width: 12px;
+}
+
+.box-delete-comment {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-delete-comment,
+button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  padding: 12px;
+}
+
+.btn-delete-comment {
+  background-image: url(./images/delete.svg);
+  background-size: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.btn-delete-comment:hover {
+  background-color: #FBF5EF;
 }
 
 .hidden {
@@ -392,7 +429,7 @@ border-bottom: 1px solid #EDEDED;
   text-align: center;
 }
 
-.privacy:hover{
+.privacy:hover {
   background: #4458be;
   display: block;
 }
@@ -419,8 +456,9 @@ border-bottom: 1px solid #EDEDED;
   #image {
     width: 60%;
   }
-  .menu ul{
-      height: 60px;
+
+  .menu ul {
+    height: 60px;
   }
 
   .menu ul li {
@@ -436,7 +474,8 @@ border-bottom: 1px solid #EDEDED;
     background-color: #5108B0;
     color: #EDEDED;
   }
-  .bio p{
+
+  .bio p {
     border-top: 1px solid black;
   }
 
@@ -463,8 +502,9 @@ border-bottom: 1px solid #EDEDED;
   #post-area {
     width: 65%;
   }
-  #post-area p{
-  margin: 15px 0;
+
+  #post-area p {
+    margin: 15px 0;
   }
 
   .avatar {

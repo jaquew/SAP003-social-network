@@ -111,9 +111,13 @@ function printPosts(post) {
     postTemplate += `
       <div class='comments-box' id='comment-div-${post.id}'>
         ${post.data().comments.map(item => `
-        <p><span class="user-name-comment">${item.userName}: </span>
-        <span>${item.comment}</span>
-        ${Button({ dataId: post.id, idCom: item.id, class: 'btn-delete-post', title: 'deleta', onClick: btnDeleteComment})}
+        <p>
+          <span class="user-name-comment">${item.userName}: </span>
+          <span>${item.comment}</span>
+          <span class='box-delete-comment'>
+            ${Button({ dataId: post.id, idCom: item.id, class: 'btn-delete-comment', title: '', onClick: btnDeleteComment})}
+        </span>
+        <hr class="hr">
         </p>`).join('')}
       </div>
     `;
@@ -160,7 +164,6 @@ function btnDeleteComment(event) {
           comments: filterComment,
         })
       }).then(() => {
-        console.log('Deleta Senhor!');
         app.loadPosts();
       });
   }
@@ -172,7 +175,6 @@ function btnPrintComment(event) {
   const comment = document.querySelector('#input-comment-' + postid).value;
   db.collection('posts').doc().get().then(() => {
       const docPost = db.collection('posts').doc(postid);
-      console.log('pega ai', docPost)
       if (comment !== '') {
         docPost.update({
           comments: firebase.firestore.FieldValue.arrayUnion({
@@ -212,7 +214,6 @@ function deletePost(event) {
   const postColletion = firebase.firestore().collection('posts');
   postColletion.doc(id).delete()
     .then(() => {
-      console.log('Document successfully deleted!');
       app.loadPosts();
     });
 }
