@@ -9,6 +9,9 @@ input {
   border-radius: 5px;
   padding: 8px;
 }
+.loading{
+  margin: 0 auto;
+}
 
 .hr {
   width: 90%;

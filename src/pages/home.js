@@ -37,7 +37,7 @@ function Home(props) {
           </select>
           ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
         </div>
-        <ul class="posts"></ul>
+        <ul class="posts"><img class ="loading" src="../images/loading.gif"></img></ul>
       </section>
     </section>
   `;
