@@ -37,7 +37,7 @@ function Home(props) {
           </select>
           ${Button({ id: 'btn-print', title: 'Publicar', class: 'primary-button', onClick: btnPrint })}
         </div>
-        <ul class="posts"></ul>
+        <ul class="posts"><img class ="loading" src="../images/loading.gif"></img></ul>
       </section>
     </section>
   `;
@@ -67,7 +67,7 @@ function btnPrint() {
   }
 }
 
-function printPosts(post) {  
+function printPosts(post) {
   const postList = document.querySelector('.posts');
   const atual = firebase.auth().currentUser;
   const autor = post.data().user_id;
@@ -106,12 +106,11 @@ function printPosts(post) {
   } else {
     postTemplate += '</div> <hr>';
   }
-
   if (post.data().comments.length !== 0) {
     postTemplate += `
       <div class='comments-box' id='comment-div-${post.id}'>
         ${post.data().comments.map((item) => {
-          if (item.userId === atual.uid || item.userId === autor ) {
+          if (item.userId === atual.uid || atual.uid=== autor ) {
         return `<p>
           <span class="user-name-comment">${item.userName}:</span>
           <span>${item.comment}</span>
