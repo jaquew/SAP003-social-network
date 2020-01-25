@@ -1,5 +1,8 @@
+/* eslint-disable indent */
+/* eslint-disable no-undef */
 import Button from '../components/button.js';
 import Input from '../components/input.js';
+import Nav from '../components/nav.js';
 
 function btnUpdate() {
   const name = document.querySelector('.js-name-profile').value;
@@ -9,16 +12,13 @@ function btnUpdate() {
   const user = firebase.auth().currentUser;
   if (text || name || lastname || birthday) {
     db.collection('users').doc(user.email).update({
-      name: name,
+      name,
       sobrenome: lastname,
       dn: birthday,
       aboutme: text,
     }).then(() => {
-      user.updateProfile({
-        displayName: name,
-      });
+      user.updateProfile({ displayName: name });
       window.location = '#home';
-      console.log('Perfil atualizado com sucesso');
     });
   }
 }
@@ -27,36 +27,55 @@ function btnBack() {
   window.location = '#home';
 }
 
-function btnSignOut() {
-  firebase.auth().signOut().then(() => {
-    window.location = '#login';
-  });
-}
 function Profile(props) {
   const template = `
-    <nav class="menu">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#profile">Perfil</a></li>
-        ${Button({ id: 'btn-exit', class: 'btn-exit', title: 'SAIR', onClick: btnSignOut })}
-      </ul>
-    </nav>
+    ${Nav()}
     <section class="profile-layout">
       <h1>Atualize seu Perfil</h1>
       <form class="profile-box">
-      ${Input({ type: 'text', class: 'js-name-profile', id: 'name-profile', placeholder: 'Digite seu nome', value: props.name })}
-      ${Input({ type: 'text', class: 'js-lastname-profile', id: 'lastname-profile', placeholder: 'Digite seu sobrenome', value: props.sobrenome })}
-      ${Input({ type: 'date', class: 'js-birthday-profile', id: 'birthday-profile', placeholder: 'Digite sua data de nascimento', value: props.dn })}
-      ${Input({ type: 'text', class: 'js-description-profile', id: 'description-profile', placeholder: 'Fale um pouco sobre você', value: props.aboutme })}
+        ${Input({
+          type: 'text',
+          class: 'js-name-profile',
+          id: 'name-profile',
+          placeholder: 'Digite seu nome',
+          value: props.name,
+        })}
+        ${Input({
+          type: 'text',
+          class: 'js-lastname-profile',
+          id: 'lastname-profile',
+          placeholder: 'Digite seu sobrenome',
+          value: props.lastname,
+        })}
+        ${Input({
+          type: 'date',
+          class: 'js-birthday-profile',
+          id: 'birthday-profile',
+          placeholder: 'Digite sua data de nascimento',
+          value: props.birthday,
+        })}
+        ${Input({
+          type: 'text',
+          class: 'js-description-profile',
+          id: 'description-profile',
+          placeholder: 'Fale um pouco sobre você',
+          value: props.aboutme,
+        })}
 
-      <p id='aviso'></p>
+        <p id='aviso'></p>
       </form>
       <form class="btnprofile">
       ${Button({
-    class: 'primary-button', title: 'Voltar', id: 'btnBack', onClick: btnBack,
-  })}
+        class: 'primary-button',
+        title: 'Voltar',
+        id: 'btnBack',
+        onClick: btnBack,
+      })}
       ${Button({
-    class: 'primary-button', title: 'Salvar', id: 'btnUpdate', onClick: btnUpdate,
+        class: 'primary-button',
+        title: 'Salvar',
+        id: 'btnUpdate',
+        onClick: btnUpdate,
   })}
       </form>
     </section>

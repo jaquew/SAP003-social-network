@@ -1,14 +1,15 @@
 /* eslint-disable no-undef */
 import Button from '../components/button.js';
 import Input from '../components/input.js';
+import Nav from '../components/nav.js';
 
 const postColletion = firebase.firestore().collection('posts');
 
-function btnSignOut() {
-  firebase.auth().signOut().then(() => {
-    window.location = '#login';
-  });
-}
+// function btnSignOut() {
+//   firebase.auth().signOut().then(() => {
+//     window.location = '#login';
+//   });
+// }
 
 function btnPrint() {
   const content = document.querySelector('.txt-area').value;
@@ -233,15 +234,7 @@ function Home(props) {
   app.loadPosts();
 
   const template = `
-    <nav class="menu">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#profile">Perfil</a></li>
-        ${Button({
-    id: 'btn-exit', class: 'btn-exit', title: 'SAIR', onClick: btnSignOut,
-  })}
-      </ul>
-    </nav>
+    ${Nav()}
     <section class="home-container">
       <div id="greetings">
         <img class="avatar" src="https://api.adorable.io/avatars/70/${props.uid}"></img>
