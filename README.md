@@ -44,12 +44,14 @@ Projeto desenvolvido por: **Jaqueline Wanzeler, Karine Verneque e Rosangela Silv
 ![HomePage](/src/images/Page-Home.png)
 
 
-## 5. Métodos Utilizados:
+## 5. Ferramentas Utilizadas:
+
+Para este projeto, utilizamos Javascript, HTML e CSS. Foi construído utilizando a técnica [SPA](https://en.wikipedia.org/wiki/Single-page_application), que faz que uma aplicação web que rode em uma única página, se assemelhando a um aplicativo desktop ou um mobile, 
 
 Para a organização das tarefas aplicamos a ferramenta [Trello](https://trello.com/b/M54eMQi1);
 
 Foi definido como banco de dados e autenticação o [Firebase](https://social-network-squad3.firebaseapp.com), o que possibilitou criar, deletar e atualizar as informações;
 
-Utilizamos o conceito de Mobile First, pensando primeiramente na visualização da aplicação em dispositivos móveis e depois na visualização em telas maiores. Tornando assim, responsivel;
+Utilizamos o conceito de Mobile First, pensando primeiramente na visualização da aplicação em dispositivos móveis e depois na visualização em telas maiores. Tornando assim, responsivo;
 
 Foi aplicado o “flexbox” para a distribuição do espaço e alinhamento dos elementos.
