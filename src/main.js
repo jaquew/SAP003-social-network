@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import Login from './pages/login.js';
 import Register from './pages/register.js';
 import Home from './pages/home.js';
@@ -22,16 +23,16 @@ function locationHashChanged() {
       case '#login':
         user ? window.location = '#home' : document.querySelector('main').innerHTML = Login();
         break;
-        case '#profile':
-         if (user) {
+      case '#profile':
+        if (user) {
           db.collection('users').doc(user.email).get().then((snap) => {
             const data = snap.data();
             document.querySelector('main').innerHTML = Profile(data);
           });
-         } else {
-           window.location = '#login';
-         }
-         break;
+        } else {
+          window.location = '#login';
+        }
+        break;
       default:
         window.location = '#login';
     }

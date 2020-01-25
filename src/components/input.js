@@ -1,4 +1,4 @@
-function Input(props) {  
+function Input(props) {
   const template = `
       <input
       class='${props.class}'
@@ -9,16 +9,14 @@ function Input(props) {
       value='${props.value}'
       ${props.ev} = "input.handleClick(event, ${props.evFunction})"/>
       `;
-      return template;
-    }
+  return template;
+}
 
-    window.input = {
+window.input = {
   handleClick: (event, callback) => {
     event.preventDefault();
     if (callback !== undefined) {
       callback(event);
-    } else {
-      return undefined;
     }
   },
 };
