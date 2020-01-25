@@ -40,8 +40,8 @@ function googleLogin() {
           });
         }
       });
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
+      firebase.auth().onAuthStateChanged((userActive) => {
+        if (userActive) {
           window.location = '#home';
         }
       });
@@ -81,7 +81,7 @@ function Login() {
             onClick: googleLogin,
           })}
         </form>
-        <p>Não tem conta? <a href="#register">Registre-se</a></p>
+        <p>Ainda não tem conta? <a href="#register">Registre-se</a></p>
       </div>
     </section>
   `;
