@@ -43,7 +43,7 @@ function btnDeleteComment(e) {
     postColletion.doc(postId).get()
       .then((item) => {
         const commentsPost = item.data().comments;
-        const filterComment = commentsPost.filter(comment => comment.id !== commentId);
+        const filterComment = commentsPost.filter(comment => comment.id != commentId);
 
         postColletion.doc(postId).update({
           comments: filterComment,
