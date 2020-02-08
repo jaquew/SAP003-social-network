@@ -304,13 +304,12 @@ img.img-btn-google {
 }
 
 .btn-exit {
-  border: none;
   background: #5108B0;
   color: #EDEDED;
 }
 
 .btn-exit:hover {
-  border-bottom: 1px solid #EDEDED;
+  border: 2px solid #EDEDED;
 }
 
 
