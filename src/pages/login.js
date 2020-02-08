@@ -9,11 +9,11 @@ function buttonLogin() {
   firebase.auth().signInWithEmailAndPassword(email, password).catch((error) => {
     const errorCode = error.code;
     if (errorCode === 'auth/user-not-found') {
-      growl({ text: 'Usuário não encontrado!', type: 'error' });
+      growl({ text: 'Usuário não encontrado!', type: 'error', fadeAway: true, fadeAwayTimeOut: 1500 });
     } else if (errorCode === 'auth/invalid-email') {
-      growl({ text: 'E-mail inválido', type: 'error' });
+      growl({ text: 'E-mail inválido', type: 'error', fadeAway: true, fadeAwayTimeOut: 1500 });
     } else if (errorCode === 'auth/wrong-password') {
-      growl({ text: 'Email ou senha inválido!', type: 'error' });
+      growl({ text: 'Email ou senha inválido!', type: 'error', fadeAway: true, fadeAwayTimeOut: 1500 });
     }
   });
   firebase.auth().onAuthStateChanged((user) => {
