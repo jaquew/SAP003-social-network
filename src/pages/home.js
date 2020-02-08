@@ -3,6 +3,8 @@ import Button from '../components/button.js';
 import Input from '../components/input.js';
 import Nav from '../components/nav.js';
 
+const postColletion = firebase.firestore().collection('posts');
+
 function btnPrint() {
   const content = document.querySelector('.txt-area').value;
   const filterPrivacy = document.getElementById('privacy').value;
