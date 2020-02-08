@@ -12,7 +12,7 @@ function btnRegister() {
   if (email && name && lastname && birthday && password) {
     firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
       const user = firebase.auth().currentUser;
-      if (user != null) {
+      if (user != null) {        
         window.location = '#home';
         db.collection('users').doc(email).set({
           name,
@@ -22,13 +22,14 @@ function btnRegister() {
           uid: user.uid,
           aboutme: '',
         });
+        growl({ text: 'Foii!', type: 'success' });
       }
       user.updateProfile({
         displayName: name,
       });
     });
   } else {
-    alert('Por favor, preencha todos os campos!');
+    growl({ text: 'Por favor, preencha todos os campos!', type: 'error' });
   }
 }
 
@@ -44,7 +45,7 @@ function passValidation() {
   pass.textContent = '';
   if (password.match(re)) {
     buttonRegister.disabled = false;
-    buttonRegister.style.backgroundColor = '#F76900';
+    buttonRegister.style.backgroundColor = '#5108B0';
   } else {
     buttonRegister.disabled = true;
     buttonRegister.style.backgroundColor = '#808080';

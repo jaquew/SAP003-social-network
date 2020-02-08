@@ -3,14 +3,6 @@ import Button from '../components/button.js';
 import Input from '../components/input.js';
 import Nav from '../components/nav.js';
 
-const postColletion = firebase.firestore().collection('posts');
-
-// function btnSignOut() {
-//   firebase.auth().signOut().then(() => {
-//     window.location = '#login';
-//   });
-// }
-
 function btnPrint() {
   const content = document.querySelector('.txt-area').value;
   const filterPrivacy = document.getElementById('privacy').value;
@@ -43,7 +35,7 @@ function btnDeleteComment(e) {
     postColletion.doc(postId).get()
       .then((item) => {
         const commentsPost = item.data().comments;
-        const filterComment = commentsPost.filter(comment => comment.id != commentId);
+        const filterComment = commentsPost.filter(commentItem => commentItem.id != commentId);
 
         postColletion.doc(postId).update({
           comments: filterComment,
@@ -184,7 +176,8 @@ function printPosts(post) {
       <div class='comments-box' id='comment-div-${post.id}'>
         ${post.data().comments.map((item) => {
     if (item.userId === atual.uid || atual.uid === autor) {
-      return `<p>
+      return `
+        <p>
           <span class="user-name-comment">${item.userName}:</span>
           <span>${item.comment}</span>
             <span class='box-delete-comment'>
